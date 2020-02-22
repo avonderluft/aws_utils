@@ -1,6 +1,6 @@
 # AWS Rakes
 
-Rake tasks for simplified command line interaction with AWS using published AWS Ruby SDKs.
+Rake tasks for simplified command line interaction with AWS using published AWS Ruby SDKs.  This was developed out of my own need to see what's going on with my AWS resources, without having to navigate through the console and aggregate things on the fly.
 
 ## Prerequisites
 
@@ -18,6 +18,7 @@ This project has been written, tested, and run exclusively on MacOS. The instruc
 ## Installation
 
 ### Install
+
 * clone the repo into your desired directory `git clone `
 * install chruby - see docs at https://github.com/postmodern/chruby
   * `brew install chruby ruby-build ruby-install wget`
@@ -33,10 +34,10 @@ This project has been written, tested, and run exclusively on MacOS. The instruc
 * Install specified ruby version: 
 
 ```
-ruby-install ruby `cat .aws_utils/.ruby-version`
+ruby-install ruby `cat .aws_rakes/.ruby-version`
 ```
 * Optional: install other rubies according to preference
-* `cd aws_utils`
+* `cd aws_rakes`
 * confirm ruby version: `ruby -v`
 * run `bundle install` (if you are using system ruby, `sudo bundle install`)
 
