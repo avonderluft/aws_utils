@@ -1,0 +1,5 @@
+---
+default_region: us-west-2
+second_default_region: us-east-1
+cache_expire_minutes: 30
+stale_key_days: 365

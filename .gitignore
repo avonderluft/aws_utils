@@ -1,0 +1,10 @@
+/.bundle/
+/audit_reports/
+/cache/
+/coverage/
+/logs/
+/reports/
+/spec/fixtures/logs/
+/spec/reports/
+/spec/examples.txt
+.rspec_status
