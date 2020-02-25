@@ -19,7 +19,7 @@ This project has been written, tested, and run exclusively on MacOS. The instruc
 
 ### Install
 
-* clone the repo into your desired directory `git clone `
+* clone the repo into your desired directory `git clone <repo_url>  ./aws_rakes`
 * install chruby - see docs at https://github.com/postmodern/chruby
   * `brew install chruby ruby-build ruby-install wget`
   * add to your shell.rc: 
