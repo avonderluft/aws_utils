@@ -6,7 +6,7 @@ class S3Bucket
     @region = region
     @encryption = bucket_encryption(s3_client)
     @logging = bucket_logging(s3_client)
-    @rules = lifecycle_rules(s3_client)
+    @rules = bucket_lifecycle_rules(s3_client)
     @created = bucket.creation_date
   end
 
@@ -15,7 +15,7 @@ class S3Bucket
   end
 
   def bucket_encryption(s3_client)
-    @bucket_encryption ||= begin
+    begin
       rules = s3_client.get_bucket_encryption(bucket: name).server_side_encryption_configuration.rules
       encrypt_hash = {}
       encrypt_hash['algorithm'] = rules.first.apply_server_side_encryption_by_default.sse_algorithm
@@ -38,20 +38,20 @@ class S3Bucket
     end
   end
 
-  def lifecycle_rules(s3_client)
-    rules_array = []
-    @lifecycle_rules ||= begin
+  def bucket_lifecycle_rules(s3_client)
+    begin
+      rules_array = []
       bucket_rules = s3_client.get_bucket_lifecycle(bucket: name).rules
       bucket_rules.each do |br|
         rules_array << "#{br.id}(#{br.status})"
       end
+      rules_array
     rescue Aws::S3::Errors::NoSuchLifecycleConfiguration => nferr
       return []
     rescue StandardError => e
       puts e.message.red
       return []
     end
-    rules_array
   end
 
   def encryption_output

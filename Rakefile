@@ -144,6 +144,12 @@ task :regions do
   exec './bin/regions.rb'
 end
 
+desc 'Show info for specfic S3 bucket, by given bucket name'
+task :s3, :name do |_t, args|
+  check_cache
+  exec "./bin/s3_by_name.rb #{args[:name]}"
+end
+
 desc 'Show all S3 buckets'
 task :s3s do
   exec './bin/s3_buckets.rb'
