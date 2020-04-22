@@ -8,7 +8,7 @@ This project has been written, tested, and run exclusively on MacOS. The instruc
 
 * Recommended: Homebrew, if you are on MacOs.  See https://brew.sh/
 * awscli installed and configured, e.g. `brew install awscli`
-* AWS programatic access via key and secret, normally saveds in ~/.aws/config
+* AWS programatic access via key and secret, normally saved in ~/.aws/credentials
 * IAM permissions for the specific services you wish to query
 * ruby installed, with gems rake and bundler (these are pre-installed with current ruby versions)
 * Optional: a ruby version manager, e.g. chruby or rbenv
