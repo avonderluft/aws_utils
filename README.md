@@ -66,6 +66,10 @@ If your AWS account requires MFA for CLI access, you will be prompted to set up 
 
 * Display all audit tasks: `rake -T audit`
 
+### Lambda scripts
+
+The 'lambda' directory contains a few helpful scripts which can run on AWS Lambda
+
 ## Development and Testing
 
 * Run `bundle exec rake spec` to run the tests
