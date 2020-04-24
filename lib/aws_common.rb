@@ -4,7 +4,7 @@ module AwsCommon
   DIVIDER = '-'*88
   CACHE_PATH = File.join(File.dirname(__FILE__), '../cache')
   CLI = `command -v aws`.chomp
-  
+
   def owner_id
     @owner_id ||= `#{CLI} sts get-caller-identity --output text --query Account`.chomp
   end
@@ -12,7 +12,7 @@ module AwsCommon
   def config
     @config ||= YAML.load(File.read("#{File.dirname(__FILE__)}/../config/config.yaml"))
   end
-  
+
   def ce_client
     @ce_client ||= Aws::CostExplorer::Client.new region: config['default_region']
   end
@@ -24,7 +24,11 @@ module AwsCommon
   def iam_client
     @iam_client ||= Aws::IAM::Client.new region: config['default_region']
   end
-  
+
+  def lambda_client
+    @lambda_client ||= Aws::Lambda::Client.new region: config['default_region']
+  end
+
   def rds_client
     @rds_client ||= Aws::RDS::Client.new region: config['default_region']
   end

@@ -9,7 +9,7 @@ RuboCop::RakeTask.new(:style)
 
 task default: :spec
 
-def check_cache  
+def check_cache
   puts `rake cache:clear` if ENV['cache'] == 'no'
 end
 
@@ -45,7 +45,7 @@ namespace :cache do
   task :clear do
     cache_files = Dir.glob("#{File.dirname(__FILE__)}/cache/*")
     if cache_files.empty?
-      puts "cache is already empty.".yellow
+      puts 'cache is already empty.'.yellow
     else
       FileUtils.rm_rf cache_files
       cache_files.each do |cache_file|
@@ -106,13 +106,13 @@ namespace :ec2s do
     exec './bin/ec2_tags.rb'
   end
   desc 'Show EC2 instances for given Type, grouped by region'
-  task :type, :type_value do  |_t, args|
+  task :type, :type_value do |_t, args|
     check_cache
     exec "./bin/ec2s_by_type.rb #{args[:type_value]}"
   end
   task :types, [:type_value] => :type
   desc 'Show EC2 instances for given region, or all EC2s by region'
-  task :region, :region_value do  |_t, args|
+  task :region, :region_value do |_t, args|
     check_cache
     exec "./bin/ec2s_by_region.rb #{args[:region_value]}"
   end
@@ -130,6 +130,12 @@ namespace :kms do
     check_cache
     exec './bin/kms_keys_by_region.rb full'
   end
+end
+
+desc 'Show all Lambda scripts by region'
+task :lambdas do
+  check_cache
+  exec './bin/lambdas_by_region.rb'
 end
 
 desc 'Show RDS DB instances by region'
@@ -229,7 +235,7 @@ end
 
 namespace :volumes do
   desc 'Show volumes for given EC2 Type, grouped by region'
-  task :type, :type_value do  |_t, args|
+  task :type, :type_value do |_t, args|
     check_cache
     exec "./bin/volumes_by_ec2_type.rb #{args[:type_value]}"
   end
@@ -247,7 +253,7 @@ namespace :volumes do
   namespace :unattached do
     desc 'Show all unencrypted EBS volumes not attached to an EC2 instance'
     task :unencrypted do
-      check_cache 
+      check_cache
       exec './bin/volumes_unattached_unencrypted.rb'
     end
   end

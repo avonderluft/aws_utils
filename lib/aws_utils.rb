@@ -3,9 +3,11 @@
 require 'aws-sdk-costexplorer'
 require 'aws-sdk-ec2'
 require 'aws-sdk-iam'
+require 'aws-sdk-lambda'
 require 'aws-sdk-rds'
 require 'aws-sdk-s3'
 require_relative 'aws_setup'
+require_relative 'aws_lambdas'
 require_relative 'ec2_instances'
 require_relative 'ec2_regions'
 require_relative 'ec2_snapshots'
@@ -18,6 +20,7 @@ require_relative 'audit_common'
 
 class AwsUtils
   include AwsSetup
+  include AwsLambdas
   include Ec2Instances
   include Ec2Regions
   include Ec2Snapshots

@@ -22,6 +22,9 @@ GEM
     aws-sdk-kms (1.26.0)
       aws-sdk-core (~> 3, >= 3.71.0)
       aws-sigv4 (~> 1.1)
+    aws-sdk-lambda (1.39.0)
+      aws-sdk-core (~> 3, >= 3.71.0)
+      aws-sigv4 (~> 1.1)
     aws-sdk-rds (1.74.0)
       aws-sdk-core (~> 3, >= 3.71.0)
       aws-sigv4 (~> 1.1)
@@ -86,6 +89,7 @@ DEPENDENCIES
   aws-sdk-costexplorer
   aws-sdk-ec2
   aws-sdk-iam
+  aws-sdk-lambda
   aws-sdk-rds
   aws-sdk-s3
   coderay
