@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 require_relative '../lib/aws_utils'
 include AwsCommon
 
@@ -9,10 +11,8 @@ info =  '  Green: encrypted'.light_green +
         '   Red: unencrypted'.light_red
 puts info
 puts DIVIDER
-a = AwsUtils.new(cached?('s3buckets',msg=true))
-a.s3buckets.each do |bucket|
-  bucket.output_info
-end
+a = AwsUtils.new(cached?('s3buckets', true))
+a.s3buckets.each(&:output_info)
 puts LINE
 puts info
 puts DIVIDER

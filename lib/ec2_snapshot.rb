@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Ec2Snapshot
   attr_reader :id, :region, :created, :encrypted, :kms_key, :volume_id, :state, :description, :tags
 
@@ -14,13 +16,13 @@ class Ec2Snapshot
     snap.tags.each { |t| tag_hash[t.key] = t.value }
     @tags = tag_hash
   end
-  
+
   def abbreviated_description(desc)
-    desc.gsub!('Created by CreateImage','')
-    desc.gsub!('Copied for DestinationAmi ','')
-    desc.gsub!(" from #{volume_id}",'')
-    desc.gsub!('SourceAmi ','')
-    desc.gsub!('SourceSnapshot ','')
+    desc.gsub!('Created by CreateImage', '')
+    desc.gsub!('Copied for DestinationAmi ', '')
+    desc.gsub!(" from #{volume_id}", '')
+    desc.gsub!('SourceAmi ', '')
+    desc.gsub!('SourceSnapshot ', '')
     desc.split('. Task created').first
   end
 
@@ -29,14 +31,12 @@ class Ec2Snapshot
   end
 
   def output_info
-    output = { ID: id, Vol_ID: volume_id, Desc: description, Created: created}
-    ap output, indent: 1, multiline: false, color: {string: encrypted_color}
+    output = { ID: id, Vol_ID: volume_id, Desc: description, Created: created }
+    ap output, indent: 1, multiline: false, color: { string: encrypted_color }
   end
 
   def output_unencrypted_info
-    output = { ID: id, Desc: description, State: state, Tags: tags 
-             }
-    ap output, indent: 1, multiline: true, color: {string: encrypted_color}
+    output = { ID: id, Desc: description, State: state, Tags: tags }
+    ap output, indent: 1, multiline: true, color: { string: encrypted_color }
   end
-  
 end

@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 require_relative '../lib/aws_utils'
 include AwsCommon
 include AuditCommon
@@ -10,13 +12,13 @@ print "Creating audit: #{subject}...".green
 
 a = AwsUtils.new(cached?('regions') && cached?('ec2s'))
 
-open(@curr_file, 'a') do |f|
+File.open(@curr_file, 'a') do |f|
   f.puts "### #{subject} #{@fdate} ###\n"
   yaml_output = {}
   a.ec2_used_regions.each do |region|
     ec2s_hash = {}
     a.ec2s_by_region(region).each do |ec2|
-      ec2s_hash[ec2.id]  = { 'name' => ec2.name, 'key' => ec2.key_name }
+      ec2s_hash[ec2.id] = { 'name' => ec2.name, 'key' => ec2.key_name }
     end
     yaml_output[region] = ec2s_hash
   end

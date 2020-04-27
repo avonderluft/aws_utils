@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 require_relative '../lib/aws_utils'
 include AwsCommon
 
@@ -11,7 +13,7 @@ else
 end
 
 puts LINE
-a = AwsUtils.new(cached?('ec2s',msg=true) && cached?('regions',msg=true))
+a = AwsUtils.new(cached?('ec2s', true) && cached?('regions', true))
 found_instances = a.ec2s_by_name(id)
 found_instances = a.ec2s_by_id(id) if found_instances.empty?
 found_instances.each { |ec2| ec2.output_object(ec2.state_color) }

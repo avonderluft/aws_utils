@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'ec2_snapshot'
 
 module Ec2Snapshots
@@ -24,12 +26,12 @@ module Ec2Snapshots
   def unencrypted_snapshots
     snapshots.select { |s| s.encrypted == false }
   end
-  
+
   def snapshots_by_region(region)
     snapshots.select { |s| s.region == region }
   end
 
   def snapshot_tags
-    snapshots.map { |s| s.tags }
+    snapshots.map(&:tags)
   end
 end

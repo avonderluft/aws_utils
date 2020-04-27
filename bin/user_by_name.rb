@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require_relative '../lib/aws_utils'
 include AwsCommon
@@ -11,7 +12,7 @@ else
 end
 
 puts LINE
-a = AwsUtils.new(cached?('users',msg=true))
+a = AwsUtils.new(cached?('users', true))
 users = a.user_by_name(name)
-users.each { |u| u.output_object }
+users.each(&:output_object)
 puts LINE

@@ -111,6 +111,12 @@ namespace :ec2s do
     exec "./bin/ec2s_by_type.rb #{args[:type_value]}"
   end
   task :types, [:type_value] => :type
+  desc 'Show EC2 instances for given Team, grouped by region'
+  task :team, :team_value do |_t, args|
+    check_cache
+    exec "./bin/ec2s_by_team.rb #{args[:team_value]}"
+  end
+  task :teams, [:team_value] => :team
   desc 'Show EC2 instances for given region, or all EC2s by region'
   task :region, :region_value do |_t, args|
     check_cache

@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 require_relative '../lib/aws_utils'
 include AwsCommon
 include AuditCommon
@@ -10,7 +12,7 @@ print "Creating audit: #{subject}...".green
 
 a = AwsUtils.new(cached?('kms_keys') && cached?('regions'))
 
-open(@curr_file, 'a') do |f|
+File.open(@curr_file, 'a') do |f|
   f.puts "### #{subject} #{@fdate} ###\n"
   yaml_output = {}
   a.kms_keys_used_regions.each do |region|
@@ -20,7 +22,7 @@ open(@curr_file, 'a') do |f|
     end
     yaml_output[region] = keys_hash
   end
-  f.puts yaml_output.to_yaml.tr("'",'')
+  f.puts yaml_output.to_yaml.tr("'", '')
   f.puts "\n### #{subject} complete ###"
 end
 

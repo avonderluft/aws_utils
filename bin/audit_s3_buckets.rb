@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 require_relative '../lib/aws_utils'
 include AwsCommon
 include AuditCommon
@@ -10,7 +12,7 @@ print "Creating audit: #{subject}...".green
 
 a = AwsUtils.new(cached?('regions') && cached?('s3buckets'))
 
-open(@curr_file, 'a') do |f|
+File.open(@curr_file, 'a') do |f|
   f.puts "### #{subject} #{@fdate} ###\n"
   yaml_output = {}
   a.s3buckets.each do |bucket|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'iam_user'
 
 module IamUsers
@@ -34,7 +36,7 @@ module IamUsers
   end
 
   def users_with_stale_keys
-    users.select { |u| u.key_age.to_i > config['stale_key_days']}
+    users.select { |u| u.key_age.to_i > config['stale_key_days'] }
   end
 
   def service_users

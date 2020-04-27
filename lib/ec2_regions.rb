@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ec2Regions
   def regions
     @regions ||= begin

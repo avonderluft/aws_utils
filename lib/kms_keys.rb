@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'kms_key'
 
 module KmsKeys
@@ -22,10 +24,10 @@ module KmsKeys
   end
 
   def kms_keys_used_regions
-    kms_keys.map { |k| k.region }.uniq.sort
+    kms_keys.map(&:region).uniq.sort
   end
 
   def kms_keys_by_region(region)
-    kms_keys.select { |key| key.region == region }.sort_by { |k| k.id }
+    kms_keys.select { |key| key.region == region }.sort_by(&:id)
   end
 end

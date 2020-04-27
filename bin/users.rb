@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 require_relative '../lib/aws_utils'
 include AwsCommon
 
@@ -9,10 +11,8 @@ info =  '  Green: MFA and email set'.light_green +
         '   Red: No MFA and/or email'.light_red
 puts info
 puts DIVIDER
-a = AwsUtils.new(cached?('users',msg=true))
-a.users.each do |user|
-  user.output_info
-end
+a = AwsUtils.new(cached?('users', true))
+a.users.each(&:output_info)
 puts LINE
 puts info
 puts DIVIDER

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 's3_bucket'
 
 module S3Buckets
@@ -9,11 +11,12 @@ module S3Buckets
         all_s3buckets = []
         s3_client.list_buckets.buckets.each do |bucket|
           region = s3_client.get_bucket_location(bucket: bucket.name).location_constraint
-          if region.empty? # this bucket has location in non-default region
-            s3bucket = loop_regions_for_bucket(bucket)
-          else
-            s3bucket = S3Bucket.new(bucket, region, s3_client)
-          end
+
+          s3bucket = if region.empty? # this bucket has location in non-default region
+                       loop_regions_for_bucket(bucket)
+                     else
+                       S3Bucket.new(bucket, region, s3_client)
+                     end
           all_s3buckets << s3bucket
         end
         write_cache('s3buckets', all_s3buckets)
@@ -32,7 +35,7 @@ module S3Buckets
       begin
         alt_s3_client.head_bucket bucket: bucket.name
         return S3Bucket.new(bucket, region, alt_s3_client)
-      rescue
+      rescue StandardError
         next
       end
     end

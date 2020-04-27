@@ -1,7 +1,8 @@
-module AwsCommon
+# frozen_string_literal: true
 
-  LINE = '='.light_blue*108
-  DIVIDER = '-'*88
+module AwsCommon
+  LINE = '='.light_blue * 108
+  DIVIDER = '-' * 88
   CACHE_PATH = File.join(File.dirname(__FILE__), '../cache')
   CLI = `command -v aws`.chomp
 
@@ -38,15 +39,16 @@ module AwsCommon
   end
 
   def cache_file_path(cache_name)
-     "#{CACHE_PATH}/#{cache_name}_cache.yaml"
+    "#{CACHE_PATH}/#{cache_name}_cache.yaml"
   end
 
-  def cached?(cache_name, output=false)
+  def cached?(cache_name, output = false)
     filepath = cache_file_path(cache_name)
     return false unless File.exist? filepath
+
     age_minutes = (Time.now - File.stat(filepath).mtime).to_i / 60
     mins_to_expire = config['cache_expire_minutes'].to_i - age_minutes
-    if mins_to_expire < 0
+    if mins_to_expire.negative?
       FileUtils.rm_f filepath
       false
     else
@@ -73,8 +75,8 @@ module AwsCommon
     hash
   end
 
-  def output_object(status_color='green')
+  def output_object(status_color = 'green')
     output = output_hash(self)
-    ap output, object_id: false, indent: 1, index: false, color: {string: status_color}
+    ap output, object_id: false, indent: 1, index: false, color: { string: status_color }
   end
 end

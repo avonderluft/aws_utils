@@ -1,25 +1,20 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require_relative '../lib/aws_utils'
 include AwsCommon
 
-a = AwsUtils.new(cached?('volumes',msg=true))
-if ARGV[0] && ARGV[0] != 'all'
-  regions = ARGV
-else
-  regions = a.region_names
-end
+a = AwsUtils.new(cached?('volumes', true))
+regions = ARGV[0] && ARGV[0] != 'all' ? ARGV : a.region_names
 
 regions.each do |region|
   reg_vols = a.vols_by_region(region).select { |v| v.encrypted == false }
-  unless reg_vols.empty?
-    puts LINE
-    puts 'Region: ' + region.light_cyan + '  Unencrypted Volume Count: ' + reg_vols.count.to_s.yellow
-    puts DIVIDER
-    reg_vols.each do |reg_vol|
-      reg_vol.output_unencrypted_info
-    end
-  end
+  next if reg_vols.empty?
+
+  puts LINE
+  puts 'Region: ' + region.light_cyan + '  Unencrypted Volume Count: ' + reg_vols.count.to_s.yellow
+  puts DIVIDER
+  reg_vols.each(&:output_unencrypted_info)
 end
 
 puts LINE

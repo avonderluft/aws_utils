@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'aws_lambda'
 
 module AwsLambdas
@@ -9,7 +11,7 @@ module AwsLambdas
         all_aws_lambdas = []
         region_names.each do |region_name|
           client = Aws::Lambda::Client.new(region: region_name)
-          lambdas =  client.list_functions.functions
+          lambdas = client.list_functions.functions
           lambdas.each do |lamb|
             aws_lambda = AwsLambda.new(lamb, region_name)
             all_aws_lambdas << aws_lambda

@@ -30,7 +30,7 @@ class AwsUtils
   include RdsDbInstances
   include S3Buckets
 
-  def initialize(cached=false)
+  def initialize(cached = false)
     setup(cached)
   end
 end

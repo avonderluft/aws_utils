@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'ec2_volume'
 
 module Ec2Volumes
@@ -21,36 +23,36 @@ module Ec2Volumes
       all_volumes
     end
   end
-  
+
   def volume_owners
-    volumes.map { |v| v.owner }.uniq.delete_if { |e| e.empty? }.sort
+    volumes.map(&:owner).uniq.delete_if(&:empty?).sort
   end
-  
+
   def volume_ec2_types
-    volumes.map { |v| v.ec2_type }.uniq.delete_if { |e| e.empty? }.sort
+    volumes.map(&:ec2_type).uniq.delete_if(&:empty?).sort
   end
 
   def unencrypted_volumes
     volumes.select { |v| v.encrypted == false }
   end
-  
+
   def unattached_volumes
     volumes.select { |v| v.ec2_name == '<none>' }
   end
-  
+
   def unattached_unencrypted_volumes
-    volumes.select { |v| v.ec2_name == '<none>' &&  v.encrypted == false }
+    volumes.select { |v| v.ec2_name == '<none>' && v.encrypted == false }
   end
 
   def vols_by_region(region)
     volumes.select { |v| v.region == region }
   end
-  
+
   def vols_by_ec2_type(ec2_type)
     volumes.select { |v| v.ec2_type == ec2_type }
   end
 
   def vol_tags
-    volumes.map { |v| v.tags }
+    volumes.map(&:tags)
   end
 end
