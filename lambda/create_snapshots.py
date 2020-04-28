@@ -143,5 +143,6 @@ def lambda_handler(event, context):
             {'Name': 'tag-value', 'Values': [instance_name]},
         ]
         snapshot_count = len(ec.describe_snapshots(OwnerIds=account_ids, Filters=instance_filter)['Snapshots'])
-
-    post_to_slack("Created snapshot %s" % snap['SnapshotId'], instance_name, snapshot_count, delete_fmt)
+        
+    if 'snap' in locals():
+        post_to_slack("Created snapshot %s" % snap['SnapshotId'], instance_name, snapshot_count, delete_fmt)
