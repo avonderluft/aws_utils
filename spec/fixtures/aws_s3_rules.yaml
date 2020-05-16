@@ -1,0 +1,32 @@
+--- !ruby/array:Aws::Xml::DefaultList
+- !ruby/struct:Aws::S3::Types::Rule
+  expiration: !ruby/struct:Aws::S3::Types::LifecycleExpiration
+    date:
+    days:
+    expired_object_delete_marker: true
+  id: Do the thing
+  prefix:
+  status: Enabled
+  transition: !ruby/struct:Aws::S3::Types::Transition
+    date:
+    days: 30
+    storage_class: STANDARD_IA
+  noncurrent_version_transition: !ruby/struct:Aws::S3::Types::NoncurrentVersionTransition
+    noncurrent_days: 30
+    storage_class: STANDARD_IA
+  noncurrent_version_expiration:
+  abort_incomplete_multipart_upload: !ruby/struct:Aws::S3::Types::AbortIncompleteMultipartUpload
+    days_after_initiation: 7
+- !ruby/struct:Aws::S3::Types::Rule
+  expiration: !ruby/struct:Aws::S3::Types::LifecycleExpiration
+    date:
+    days: 1825
+    expired_object_delete_marker:
+  id: Do the other thing
+  prefix:
+  status: Disabled
+  transition:
+  noncurrent_version_transition:
+  noncurrent_version_expiration: !ruby/struct:Aws::S3::Types::NoncurrentVersionExpiration
+    noncurrent_days: 7
+  abort_incomplete_multipart_upload:

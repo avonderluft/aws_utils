@@ -1,0 +1,4 @@
+--- !ruby/struct:Aws::S3::Types::LoggingEnabled
+target_bucket: logging-bucket
+target_grants: !ruby/array:Aws::Xml::DefaultList []
+target_prefix: logs/

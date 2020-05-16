@@ -5,7 +5,7 @@ class Ec2Instance
               :key_name, :az, :launch_time, :uptime, :ami, :monitoring, :instance_type, :state,
               :sec_groups
   def initialize(ec2, region_name)
-    @id = ec2.id
+    @id = ec2.instance_id
     @region = region_name
     tag_hash = {}
     ec2.tags.each { |t| tag_hash[t.key] = t.value }

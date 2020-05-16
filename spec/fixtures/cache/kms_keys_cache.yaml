@@ -1,0 +1,293 @@
+---
+- !ruby/object:KmsKey
+  id: d2524a8c-57d9-4daf-a1f8-f3b560996047
+  name: aws/ebs
+  region: eu-central-1
+  arn: arn:aws:kms:eu-central-1:192387101131:key/d2524a8c-57d9-4daf-a1f8-f3b560996047
+  description: Default master key that protects my EBS volumes when no other key is
+    defined
+  created: 2018-12-06 12:57:15.815999984 -08:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: cef467a8-f68e-4e3d-b040-3da8efc1391c
+  name: 
+  region: eu-west-1
+  arn: arn:aws:kms:eu-west-1:192387101131:key/cef467a8-f68e-4e3d-b040-3da8efc1391c
+  description: Default master key that protects my EBS volumes when no other key is
+    defined
+  created: 2018-06-05 13:41:37.062999963 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: e7114986-e969-4257-aa6b-b0dc715b7c4c
+  name: aws/ebs
+  region: eu-west-1
+  arn: arn:aws:kms:eu-west-1:192387101131:key/e7114986-e969-4257-aa6b-b0dc715b7c4c
+  description: Default master key that protects my EBS volumes when no other key is
+    defined
+  created: 2018-06-05 13:41:37.012000083 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 0a432b1d-676f-43c5-8bd4-c592942ee85b
+  name: aws/ebs
+  region: eu-west-2
+  arn: arn:aws:kms:eu-west-2:192387101131:key/0a432b1d-676f-43c5-8bd4-c592942ee85b
+  description: Default master key that protects my EBS volumes when no other key is
+    defined
+  created: 2018-12-06 12:57:52.698999881 -08:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 46d27b50-7a9c-4e8a-8557-5257d3d7f714
+  name: aws/ebs
+  region: eu-west-3
+  arn: arn:aws:kms:eu-west-3:192387101131:key/46d27b50-7a9c-4e8a-8557-5257d3d7f714
+  description: Default master key that protects my EBS volumes when no other key is
+    defined
+  created: 2018-12-06 12:58:02.812999963 -08:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 02a3d6b3-1974-46f1-bbad-a515b821a54b
+  name: aws/acm
+  region: us-east-1
+  arn: arn:aws:kms:us-east-1:192387101131:key/02a3d6b3-1974-46f1-bbad-a515b821a54b
+  description: Default master key that protects my ACM private keys when no other
+    key is defined
+  created: 2019-07-25 14:46:45.924000024 -07:00
+  enabled: true
+  key_rotation: unavailable
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: '08c974d3-f261-4bfa-89d3-bc2e24c452bb'
+  name: aws/rds
+  region: us-east-1
+  arn: arn:aws:kms:us-east-1:192387101131:key/08c974d3-f261-4bfa-89d3-bc2e24c452bb
+  description: Default master key that protects my RDS database volumes when no other
+    key is defined
+  created: 2018-05-23 12:41:56.858999967 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 8961674a-61f1-4f72-bd5e-86c2ac7c6aa8
+  name: aws/lightsail
+  region: us-east-1
+  arn: arn:aws:kms:us-east-1:192387101131:key/8961674a-61f1-4f72-bd5e-86c2ac7c6aa8
+  description: Default master key that protects my Lightsail signing keys when no
+    other key is defined
+  created: 2016-12-07 10:42:44.480000019 -08:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 8c806848-ed66-491f-935e-7006227b0970
+  name: aws/s3
+  region: us-east-1
+  arn: arn:aws:kms:us-east-1:192387101131:key/8c806848-ed66-491f-935e-7006227b0970
+  description: Default master key that protects my S3 objects when no other key is
+    defined
+  created: 2019-10-08 15:44:26.983000040 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 9519105b-c8fe-4c6f-b101-ebecff6cb057
+  name: 
+  region: us-east-1
+  arn: arn:aws:kms:us-east-1:192387101131:key/9519105b-c8fe-4c6f-b101-ebecff6cb057
+  description: Default master key that protects my Lightsail signing keys when no
+    other key is defined
+  created: 2016-12-07 10:42:44.517999887 -08:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 9a7a5e1c-b32f-48f2-a9bf-84052d6caff9
+  name: aws/ebs
+  region: us-east-1
+  arn: arn:aws:kms:us-east-1:192387101131:key/9a7a5e1c-b32f-48f2-a9bf-84052d6caff9
+  description: Default master key that protects my EBS volumes when no other key is
+    defined
+  created: 2015-07-01 15:59:56.763000011 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 1616e23e-ce36-4a48-ade4-dd5c9ebb8dfb
+  name: s3-prod-ruleinsight
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/1616e23e-ce36-4a48-ade4-dd5c9ebb8dfb
+  description: Prod Rule Insight Key
+  created: 2015-11-06 09:22:12.614000082 -08:00
+  enabled: false
+  key_rotation: true
+  managed_by: CUSTOMER
+- !ruby/object:KmsKey
+  id: 181299b1-6887-4e26-9735-d58368ab5c18
+  name: aws/lambda
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/181299b1-6887-4e26-9735-d58368ab5c18
+  description: Default master key that protects my Lambda functions when no other
+    key is defined
+  created: 2018-12-18 12:52:37.591000080 -08:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 2422d36b-dac0-471e-bfca-8aa2b92c93d9
+  name: aws/rds
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/2422d36b-dac0-471e-bfca-8aa2b92c93d9
+  description: Default master key that protects my RDS database volumes when no other
+    key is defined
+  created: 2017-09-21 15:28:48.559999942 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 30b96cf2-55c3-410a-a1fd-52c63ace2995
+  name: aws/redshift
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/30b96cf2-55c3-410a-a1fd-52c63ace2995
+  description: Default master key that protects my Redshift clusters when no other
+    key is defined
+  created: 2017-02-08 16:58:31.549000024 -08:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 3d08bafb-b93a-48b2-8735-6d998fe737e8
+  name: EMR_KMS_key
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/3d08bafb-b93a-48b2-8735-6d998fe737e8
+  description: KMS key for EMR
+  created: 2017-09-11 09:25:05.308000087 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: CUSTOMER
+- !ruby/object:KmsKey
+  id: 52b9ff04-169c-471e-8d4b-6044d1af83a2
+  name: s3-prod-tlm
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/52b9ff04-169c-471e-8d4b-6044d1af83a2
+  description: Production TLM encryption key
+  created: 2016-12-08 12:12:37.138000011 -08:00
+  enabled: true
+  key_rotation: true
+  managed_by: CUSTOMER
+- !ruby/object:KmsKey
+  id: 55f344ec-81a7-448d-9e14-db710ce364f2
+  name: aws/importexport
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/55f344ec-81a7-448d-9e14-db710ce364f2
+  description: Default master key that protects my importexport jobs when no other
+    key is defined
+  created: 2017-07-11 11:36:07.801000118 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 635e0ea2-6785-4987-b6ba-631cdfbe9bb6
+  name: S3_KMS_key
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/635e0ea2-6785-4987-b6ba-631cdfbe9bb6
+  description: KMS key for S3
+  created: 2017-09-11 09:25:58.822999954 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: CUSTOMER
+- !ruby/object:KmsKey
+  id: 6cb24961-f700-48cc-a1f3-0c86cd26614b
+  name: aws/acm
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/6cb24961-f700-48cc-a1f3-0c86cd26614b
+  description: Default master key that protects my ACM private keys when no other
+    key is defined
+  created: 2017-04-03 13:36:34.232000112 -07:00
+  enabled: true
+  key_rotation: unavailable
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 7dd10551-5afa-4ee9-bd9f-e84c40f2ee03
+  name: aws/lightsail
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/7dd10551-5afa-4ee9-bd9f-e84c40f2ee03
+  description: Default master key that protects my Lightsail signing keys when no
+    other key is defined
+  created: 2017-10-16 11:19:11.562000036 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: 947a0179-9911-40eb-ac37-8ab099ee6950
+  name: aws/s3
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/947a0179-9911-40eb-ac37-8ab099ee6950
+  description: Default master key that protects my S3 objects when no other key is
+    defined
+  created: 2017-06-20 14:56:53.318000078 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: bf7a4b9b-7ad7-4972-81d1-64c5886faa9f
+  name: 
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/bf7a4b9b-7ad7-4972-81d1-64c5886faa9f
+  description: Default master key that protects my RDS database volumes when no other
+    key is defined
+  created: 2017-09-21 15:28:48.575999975 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: c86a5212-0a2e-4da1-a51d-2cf4f30c5197
+  name: RDS_EMR_KMS_key
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/c86a5212-0a2e-4da1-a51d-2cf4f30c5197
+  description: encrypt rds emr
+  created: 2017-09-21 15:35:17.398000001 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: CUSTOMER
+- !ruby/object:KmsKey
+  id: d98be250-e819-4dad-b081-fdbf62535fc3
+  name: aws/backup
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/d98be250-e819-4dad-b081-fdbf62535fc3
+  description: Default master key that protects my Backup data when no other key is
+    defined
+  created: 2019-05-16 09:28:17.677999973 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: e42a61a4-e06f-4b07-b4e5-3bee6f8dbafb
+  name: aws/ebs
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/e42a61a4-e06f-4b07-b4e5-3bee6f8dbafb
+  description: Default master key that protects my EBS volumes when no other key is
+    defined
+  created: 2015-10-05 07:53:27.578999996 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS
+- !ruby/object:KmsKey
+  id: f383bda2-ce6a-4b47-9b26-12fc95e87a6a
+  name: 
+  region: us-west-2
+  arn: arn:aws:kms:us-west-2:192387101131:key/f383bda2-ce6a-4b47-9b26-12fc95e87a6a
+  description: Default master key that protects my Lightsail signing keys when no
+    other key is defined
+  created: 2017-10-16 11:19:11.582999944 -07:00
+  enabled: true
+  key_rotation: true
+  managed_by: AWS

@@ -79,7 +79,7 @@ class IamUser
   end
 
   def tags_output
-    tags_string = ''.dup # unfrozen string
+    tags_string = ''.dup # unfrozen
     tags.each_pair { |key, value| tags_string << "#{key}: #{value}, " }
     tags_string.strip.chomp(',')
   end

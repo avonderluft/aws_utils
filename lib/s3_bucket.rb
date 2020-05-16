@@ -25,17 +25,13 @@ class S3Bucket
   rescue Aws::S3::Errors::ServerSideEncryptionConfigurationNotFoundError
     {}
   rescue StandardError => e
-    puts e.message.red
+    puts e.message.yellow
     {}
   end
 
   def bucket_logging(s3_client)
     logging_response = s3_client.get_bucket_logging(bucket: name).logging_enabled
-    if logging_response
-      logging_response.target_bucket
-    else
-      'none'
-    end
+    logging_response ? logging_response.target_bucket : 'none'
   end
 
   def bucket_lifecycle_rules(s3_client)

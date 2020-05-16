@@ -1,0 +1,10 @@
+---
+- !ruby/struct:Aws::S3::Types::Bucket
+  name: test-1
+  creation_date: 2020-02-28 05:49:36.000000000 Z
+- !ruby/struct:Aws::S3::Types::Bucket
+  name: test-2
+  creation_date: 2020-02-28 05:50:09.000000000 Z
+- !ruby/struct:Aws::S3::Types::Bucket
+  name: test-3
+  creation_date: 2020-02-28 05:50:59.000000000 Z

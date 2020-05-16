@@ -10,7 +10,7 @@ require_relative 'aws_common'
 module AwsSetup
   include AwsCommon
   def setup(cached)
-    if CLI.empty?
+    if cli.empty?
       puts 'AWS CLI is not found.  Ensure that it is installed, and in your path.  Exiting.'.red
       exit
     end
@@ -21,7 +21,7 @@ module AwsSetup
   end
 
   def mfa_set?
-    system "#{CLI} ec2 --output text describe-internet-gateways &>/dev/null"
+    system "#{cli} ec2 --output text describe-internet-gateways &>/dev/null"
   end
 
   def reset_mfa

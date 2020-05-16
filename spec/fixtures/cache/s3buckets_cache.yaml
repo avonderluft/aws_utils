@@ -1,0 +1,31 @@
+---
+- !ruby/object:S3Bucket
+  id: 70274038590540
+  name: test-1
+  region: us-west-2
+  encryption: {}
+  logging: none
+  rules:
+  - Do the thing(Enabled)
+  - Do the other thing(Disabled)
+  created: 2020-02-28 05:49:36.000000000 Z
+- !ruby/object:S3Bucket
+  id: 70274038588420
+  name: test-2
+  region: us-west-2
+  encryption: {}
+  logging: none
+  rules:
+  - Do the thing(Enabled)
+  - Do the other thing(Disabled)
+  created: 2020-02-28 05:50:09.000000000 Z
+- !ruby/object:S3Bucket
+  id: 70274038610540
+  name: test-3
+  region: us-west-2
+  encryption: {}
+  logging: none
+  rules:
+  - Do the thing(Enabled)
+  - Do the other thing(Disabled)
+  created: 2020-02-28 05:50:59.000000000 Z

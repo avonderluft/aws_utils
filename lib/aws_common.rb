@@ -4,10 +4,13 @@ module AwsCommon
   LINE = '='.light_blue * 108
   DIVIDER = '-' * 88
   CACHE_PATH = File.join(File.dirname(__FILE__), '../cache')
-  CLI = `command -v aws`.chomp
+
+  def cli
+    @cli ||= `command -v aws`.chomp
+  end
 
   def owner_id
-    @owner_id ||= `#{CLI} sts get-caller-identity --output text --query Account`.chomp
+    @owner_id ||= `#{cli} sts get-caller-identity --output text --query Account`.chomp
   end
 
   def config

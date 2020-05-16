@@ -1,0 +1,120 @@
+--- !ruby/struct:Aws::EC2::Types::Instance
+ami_launch_index: 0
+image_id: ami-00000000000001
+instance_id: i-00000000000001
+instance_type: t2.micro
+kernel_id:
+key_name: jb
+launch_time: 2020-04-03 20:59:01.000000000 Z
+monitoring: !ruby/struct:Aws::EC2::Types::Monitoring
+  state: disabled
+placement: !ruby/struct:Aws::EC2::Types::Placement
+  availability_zone: us-west-2a
+  affinity:
+  group_name: ''
+  partition_number:
+  host_id:
+  tenancy: default
+  spread_domain:
+  host_resource_group_arn:
+platform:
+private_dns_name: ip-10-215-2-2.us-west-2.compute.internal
+private_ip_address: 10.215.2.2
+product_codes: []
+public_dns_name: ''
+public_ip_address:
+ramdisk_id:
+state: !ruby/struct:Aws::EC2::Types::InstanceState
+  code: 16
+  name: running
+state_transition_reason: ''
+subnet_id: subnet-00000000000001
+vpc_id: vpc-00000000000001
+architecture: x86_64
+block_device_mappings:
+- !ruby/struct:Aws::EC2::Types::InstanceBlockDeviceMapping
+  device_name: "/dev/xvda"
+  ebs: !ruby/struct:Aws::EC2::Types::EbsInstanceBlockDevice
+    attach_time: 2020-04-03 20:59:02.000000000 Z
+    delete_on_termination: true
+    status: attached
+    volume_id: vol-00000000000001
+client_token: ''
+ebs_optimized: false
+ena_support: true
+hypervisor: xen
+iam_instance_profile:
+instance_lifecycle:
+elastic_gpu_associations: !ruby/array:Aws::Xml::DefaultList []
+elastic_inference_accelerator_associations: !ruby/array:Aws::Xml::DefaultList []
+network_interfaces:
+- !ruby/struct:Aws::EC2::Types::InstanceNetworkInterface
+  association:
+  attachment: !ruby/struct:Aws::EC2::Types::InstanceNetworkInterfaceAttachment
+    attach_time: 2020-04-03 20:59:01.000000000 Z
+    attachment_id: eni-attach-00000000000001
+    delete_on_termination: true
+    device_index: 0
+    status: attached
+  description: Primary network interface
+  groups:
+  - !ruby/struct:Aws::EC2::Types::GroupIdentifier
+    group_name: us-west-2-np-sg
+    group_id: sg-00000000000001
+  ipv_6_addresses: []
+  mac_address: 02:3e:74:fa:8a:bc
+  network_interface_id: eni-00000000000001
+  owner_id: '192387101131'
+  private_dns_name: ip-10-215-2-2.us-west-2.compute.internal
+  private_ip_address: 10.215.2.2
+  private_ip_addresses:
+  - !ruby/struct:Aws::EC2::Types::InstancePrivateIpAddress
+    association:
+    primary: true
+    private_dns_name: ip-10-215-2-151.us-west-2.compute.internal
+    private_ip_address: 10.215.2.2
+  source_dest_check: true
+  status: in-use
+  subnet_id: subnet-00000000000001
+  vpc_id: vpc-00000000000001
+  interface_type: interface
+outpost_arn:
+root_device_name: "/dev/xvda"
+root_device_type: ebs
+security_groups:
+- !ruby/struct:Aws::EC2::Types::GroupIdentifier
+  group_name: us-west-2-np-sg
+  group_id: sg-00000000000001
+source_dest_check: true
+spot_instance_request_id:
+sriov_net_support:
+state_reason:
+tags:
+- !ruby/struct:Aws::EC2::Types::Tag
+  key: Owner
+  value: Jeremy Bond
+- !ruby/struct:Aws::EC2::Types::Tag
+  key: Team
+  value: Infrastructure
+- !ruby/struct:Aws::EC2::Types::Tag
+  key: Name
+  value: jb-np-test-us-west-az1
+- !ruby/struct:Aws::EC2::Types::Tag
+  key: Type
+  value: Testing
+virtualization_type: hvm
+cpu_options: !ruby/struct:Aws::EC2::Types::CpuOptions
+  core_count: 1
+  threads_per_core: 1
+capacity_reservation_id:
+capacity_reservation_specification: !ruby/struct:Aws::EC2::Types::CapacityReservationSpecificationResponse
+  capacity_reservation_preference: open
+  capacity_reservation_target:
+hibernation_options: !ruby/struct:Aws::EC2::Types::HibernationOptions
+  configured: false
+licenses: !ruby/array:Aws::Xml::DefaultList []
+metadata_options: !ruby/struct:Aws::EC2::Types::InstanceMetadataOptionsResponse
+  state: applied
+  http_tokens: optional
+  http_put_response_hop_limit: 1
+  http_endpoint: enabled

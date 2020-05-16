@@ -12,7 +12,7 @@ module Ec2Instances
         region_names.each do |region_name|
           ec2 = Aws::EC2::Resource.new(region: region_name)
           ec2.instances.each do |i|
-            instance = Ec2Instance.new(i, region_name)
+            instance = Ec2Instance.new(i.data, region_name)
             all_ec2s << instance
           end
         end

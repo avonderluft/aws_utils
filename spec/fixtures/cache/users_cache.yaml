@@ -1,0 +1,1101 @@
+---
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFVH72CC72I
+  name: aarthur
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/aarthur
+  created: 2020-03-16 17:54:50.000000000 Z
+  last_login: 2020-04-17 05:02:10.000000000 Z
+  user_groups: &1
+  - io_users
+  - Dev
+  groups: *1
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFZNJ677D3
+    :status: Active
+    :age_days: '43'
+  tags:
+    email: alex.arthur@iovation.com
+  svc_acct: false
+  email: alex.arthur@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFVIQ65FRM6
+  name: abarghouti
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/abarghouti
+  created: 2019-09-18 18:59:33.000000000 Z
+  last_login: 2020-04-28 04:06:44.000000000 Z
+  user_groups: &2
+  - io_users
+  - IT
+  groups: *2
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFQNKELMP2
+    :status: Active
+    :age_days: '19'
+  tags:
+    email: ayman.barghouti@iovation.com
+    Team: SRE-Product
+  svc_acct: false
+  email: ayman.barghouti@iovation.com
+- !ruby/object:IamUser
+  id: AIDAIUTIXZ5GR6U36G6KS
+  name: ablew
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/ablew
+  created: 2013-09-06 06:36:33.000000000 Z
+  last_login: 2020-03-17 20:59:04.000000000 Z
+  user_groups: &3
+  - io_users
+  - IT
+  - BillingReadOnly
+  groups: *3
+  policies: []
+  keys:
+  - :id: AKIAISWTWUYG4DJBCJDQ
+    :status: Inactive
+    :age_days: '1146'
+  - :id: AKIASZSZKGHF4VXDPD5S
+    :status: Active
+    :age_days: '60'
+  tags:
+    email: aaron.blew@iovation.com
+  svc_acct: false
+  email: aaron.blew@iovation.com
+- !ruby/object:IamUser
+  id: AIDAINNW3I7HHEZCL4LK2
+  name: acampbell
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/acampbell
+  created: 2018-02-20 16:53:13.000000000 Z
+  last_login: 2019-12-20 22:28:57.000000000 Z
+  user_groups: &4
+  - io_users
+  - Dev
+  groups: *4
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFYB7BEL7K
+    :status: Active
+    :age_days: '222'
+  tags:
+    email: ashley.campbell@iovation.com
+  svc_acct: false
+  email: ashley.campbell@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFZSZPHPFHX
+  name: acreeden
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/acreeden
+  created: 2019-05-24 18:13:16.000000000 Z
+  last_login: 2020-04-13 21:17:38.000000000 Z
+  user_groups: &5
+  - io_users
+  - Analytics
+  - BillingReadOnly
+  groups: *5
+  policies:
+  - policygen-cpham-201706201142
+  keys:
+  - :id: AKIASZSZKGHF7RSL4TOW
+    :status: Active
+    :age_days: '339'
+  tags:
+    email: ashlin.creeden@iovation.com
+  svc_acct: false
+  email: ashlin.creeden@iovation.com
+- !ruby/object:IamUser
+  id: AIDAIF2VS4RX5MABD7RWI
+  name: avonderluft
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/avonderluft
+  created: 2018-02-22 21:14:01.000000000 Z
+  last_login: 2020-04-27 16:17:01.000000000 Z
+  user_groups: &6
+  - io_users
+  - Analytics
+  - IT
+  - BillingReadOnly
+  groups: *6
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFYZBL3442
+    :status: Active
+    :age_days: '235'
+  tags:
+    email: andrew.vonderluft@iovation.com
+  svc_acct: false
+  email: andrew.vonderluft@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFR4O3AIZIO
+  name: bbertola
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/bbertola
+  created: 2019-10-18 16:34:29.000000000 Z
+  last_login: 2020-04-24 16:51:37.000000000 Z
+  user_groups: &7
+  - io_users
+  - IT
+  - Dev
+  groups: *7
+  policies: []
+  keys: []
+  tags:
+    email: ben.bertola@iovation.com
+  svc_acct: false
+  email: ben.bertola@iovation.com
+- !ruby/object:IamUser
+  id: AIDAIDOHOXDSS74FNTPZK
+  name: bcrowley
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/bcrowley
+  created: 2016-10-21 19:20:56.000000000 Z
+  last_login: 2020-01-16 16:04:52.000000000 Z
+  user_groups: &8
+  - io_users
+  - IT
+  groups: *8
+  policies: []
+  keys: []
+  tags:
+    email: brian.crowley@iovation.com
+  svc_acct: false
+  email: brian.crowley@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFSZAWZ6GH3
+  name: bjones
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/bjones
+  created: 2019-05-17 20:04:28.000000000 Z
+  last_login: 2020-02-17 17:28:19.000000000 Z
+  user_groups: &9
+  - io_users
+  - IT
+  groups: *9
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFVHUCONG5
+    :status: Active
+    :age_days: '346'
+  tags:
+    email: brent.jones@iovation.com
+  svc_acct: false
+  email: brent.jones@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHF2N3GDJY5A
+  name: blove
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/blove
+  created: 2020-04-21 18:20:09.000000000 Z
+  last_login: 
+  user_groups: &10
+  - io_users
+  - C2_team
+  groups: *10
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHF3TO2YPN7
+    :status: Active
+    :age_days: '6'
+  tags:
+    email: bryan.love@iovation.com
+  svc_acct: false
+  email: bryan.love@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFYXJSCD4VN
+  name: bpark
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/bpark
+  created: 2019-10-23 17:45:07.000000000 Z
+  last_login: 2020-04-23 04:03:38.000000000 Z
+  user_groups: &11
+  - io_users
+  - IT
+  groups: *11
+  policies: []
+  keys: []
+  tags:
+    email: byung.park@iovation.com
+  svc_acct: false
+  email: byung.park@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFUJD4G2MAR
+  name: cbrucks
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/cbrucks
+  created: 2020-04-21 18:59:38.000000000 Z
+  last_login: 2020-04-22 18:25:47.000000000 Z
+  user_groups: &12
+  - io_users
+  - C2_team
+  groups: *12
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFT7IYJEPO
+    :status: Active
+    :age_days: '5'
+  - :id: AKIASZSZKGHFSAMA7S65
+    :status: Active
+    :age_days: '6'
+  tags:
+    email: corinne.brucks@iovation.com
+  svc_acct: false
+  email: corinne.brucks@iovation.com
+- !ruby/object:IamUser
+  id: AIDAIAFFREFYKHIIOCN7W
+  name: cpham
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/cpham
+  created: 2017-03-02 19:35:06.000000000 Z
+  last_login: 2020-04-27 18:30:38.000000000 Z
+  user_groups: &13
+  - io_users
+  - Analytics
+  - BillingReadOnly
+  groups: *13
+  policies:
+  - policygen-cpham-201706201142
+  keys:
+  - :id: AKIASZSZKGHFWW3QMCGD
+    :status: Active
+    :age_days: '341'
+  tags:
+    email: chan.pham@iovation.com
+  svc_acct: false
+  email: chan.pham@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFXWD7ETGYL
+  name: cwilliamson
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/cwilliamson
+  created: 2020-03-09 18:11:38.000000000 Z
+  last_login: 2020-03-09 22:22:30.000000000 Z
+  user_groups: &14
+  - io_users
+  - IT
+  groups: *14
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFQ37YFNU2
+    :status: Active
+    :age_days: '49'
+  tags:
+    email: chad.williamson@iovation.com
+  svc_acct: false
+  email: chad.williamson@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFTPFHSA4TA
+  name: dnarvaez
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/dnarvaez
+  created: 2020-04-15 20:26:31.000000000 Z
+  last_login: 
+  user_groups: &15
+  - io_users
+  - C2_team
+  groups: *15
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHF36YRFOUL
+    :status: Active
+    :age_days: '12'
+  tags:
+    email: diego.narvaez@iovation.com
+  svc_acct: false
+  email: diego.narvaez@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJ4JPMGEFLHCDHNEM2
+  name: dreed
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/dreed
+  created: 2018-05-22 21:49:12.000000000 Z
+  last_login: 2019-09-05 18:35:37.000000000 Z
+  user_groups: &16
+  - io_users
+  - IT
+  groups: *16
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHF6CQBPYIB
+    :status: Active
+    :age_days: '235'
+  tags:
+    email: damon.reed@iovation.com
+  svc_acct: false
+  email: damon.reed@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHF2IYOPXCRV
+  name: dwheeler
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/dwheeler
+  created: 2020-01-30 17:24:26.000000000 Z
+  last_login: 2020-01-30 19:45:54.000000000 Z
+  user_groups: &17
+  - io_users
+  - IT
+  groups: *17
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFZNEJQ67L
+    :status: Active
+    :age_days: '89'
+  tags:
+    email: david.wheeler@iovation.com
+  svc_acct: false
+  email: david.wheeler@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJXDBRZBTQTIXQDMA6
+  name: eneuhengen
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/eneuhengen
+  created: 2018-03-27 18:51:43.000000000 Z
+  last_login: 2019-07-15 20:55:19.000000000 Z
+  user_groups: &18
+  - io_users
+  - IT
+  groups: *18
+  policies: []
+  keys:
+  - :id: AKIAJSILZ4TYKHUIFK3A
+    :status: Active
+    :age_days: '706'
+  tags:
+    email: egan.neuhengen@iovation.com
+  svc_acct: false
+  email: egan.neuhengen@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFSUJ42NMNX
+  name: erosenbe
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/erosenbe
+  created: 2019-11-05 00:41:44.000000000 Z
+  last_login: 2020-02-18 22:58:28.000000000 Z
+  user_groups: &19
+  - io_users
+  - IT
+  groups: *19
+  policies: []
+  keys: []
+  tags:
+    email: eric.rosenberry@iovation.com
+  svc_acct: false
+  email: eric.rosenberry@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHF3QO2AQ3A7
+  name: estclair
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/estclair
+  created: 2019-09-18 18:59:33.000000000 Z
+  last_login: 2020-04-24 17:19:17.000000000 Z
+  user_groups: &20
+  - io_users
+  - IT
+  groups: *20
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHF4BMFWQGW
+    :status: Active
+    :age_days: '222'
+  tags:
+    email: elijah.stclair@iovation.com
+    Team: SRE-Product
+  svc_acct: false
+  email: elijah.stclair@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHF5T4J3CFD7
+  name: gabbott
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/gabbott
+  created: 2019-11-22 22:44:11.000000000 Z
+  last_login: 2020-04-28 16:24:07.000000000 Z
+  user_groups: &21
+  - io_users
+  - IT
+  groups: *21
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHF5T56D2G7
+    :status: Active
+    :age_days: '32'
+  - :id: AKIASZSZKGHFRLYPTGH2
+    :status: Active
+    :age_days: '33'
+  tags:
+    email: gregg.abbott@iovation.com
+  svc_acct: false
+  email: gregg.abbott@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFS4KN3UNZK
+  name: ibasak
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/ibasak
+  created: 2020-04-03 16:34:11.000000000 Z
+  last_login: 2020-04-03 18:29:07.000000000 Z
+  user_groups: &22
+  - io_users
+  - Dev
+  groups: *22
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFUJCSPU4S
+    :status: Active
+    :age_days: '25'
+  tags:
+    email: indra.basak@iovation.com
+  svc_acct: false
+  email: indra.basak@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJ33NO2OGDTKQ2YF5U
+  name: jbehrends
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/jbehrends
+  created: 2014-12-04 18:16:06.000000000 Z
+  last_login: 2019-11-05 00:26:59.000000000 Z
+  user_groups: &23
+  - io_users
+  - IT
+  groups: *23
+  policies: []
+  keys:
+  - :id: AKIAJNN3BR7HCCY6BU4A
+    :status: Active
+    :age_days: '1971'
+  tags:
+    email: josh.behrends@iovation.com
+  svc_acct: false
+  email: josh.behrends@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFVL2W565NG
+  name: jboyd
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/jboyd
+  created: 2019-10-24 20:37:07.000000000 Z
+  last_login: 2020-04-21 19:59:44.000000000 Z
+  user_groups: &24
+  - io_users
+  - IT
+  groups: *24
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFZZB65VOS
+    :status: Active
+    :age_days: '20'
+  tags:
+    email: jeremy.boyd@iovation.com
+  svc_acct: false
+  email: jeremy.boyd@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFVS52YSVPM
+  name: jmalone
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/jmalone
+  created: 2019-09-18 18:59:33.000000000 Z
+  last_login: 2020-03-27 16:39:58.000000000 Z
+  user_groups: &25
+  - io_users
+  - IT
+  groups: *25
+  policies: []
+  keys: []
+  tags:
+    email: josh.malone@iovation.com
+    Team: SRE-Product
+  svc_acct: false
+  email: josh.malone@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJYU3VKXFEQSMGAHAA
+  name: kduling
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/kduling
+  created: 2016-02-29 16:34:25.000000000 Z
+  last_login: 2020-04-13 19:11:51.000000000 Z
+  user_groups: &26
+  - io_users
+  - IT
+  groups: *26
+  policies: []
+  keys:
+  - :id: AKIAJQOARGLIN2RRZORQ
+    :status: Active
+    :age_days: '413'
+  tags:
+    email: kathleen.duling@iovation.com
+  svc_acct: false
+  email: kathleen.duling@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJ6BI2LLZ5R6QE3D7Q
+  name: kjoecken
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/kjoecken
+  created: 2017-03-02 19:35:01.000000000 Z
+  last_login: 2018-08-08 16:50:13.000000000 Z
+  user_groups: &27
+  - io_users
+  - Analytics
+  - BillingReadOnly
+  groups: *27
+  policies: []
+  keys:
+  - :id: AKIAJITLWUZNRTQSL2QQ
+    :status: Active
+    :age_days: '1062'
+  tags:
+    email: kyle.joecken@iovation.com
+  svc_acct: false
+  email: kyle.joecken@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHF5W4NFLIJ3
+  name: launchkey-static
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/launchkey-static
+  created: 2019-07-25 16:14:41.000000000 Z
+  last_login: 
+  user_groups: &28 []
+  groups: *28
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFRWL45LXX
+    :status: Active
+    :age_days: '273'
+  - :id: AKIASZSZKGHF5WURIT7S
+    :status: Active
+    :age_days: '6'
+  tags:
+    email: launchkey-engineering@iovation.com
+  svc_acct: false
+  email: launchkey-engineering@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJ3JF5NJBYFSTX6TEM
+  name: lkondratenko
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/lkondratenko
+  created: 2018-08-08 21:48:45.000000000 Z
+  last_login: 2018-08-08 22:09:18.000000000 Z
+  user_groups: &29
+  - io_users
+  - Dev
+  groups: *29
+  policies: []
+  keys:
+  - :id: AKIAJR27ITP6YLY7QKOA
+    :status: Active
+    :age_days: '628'
+  tags:
+    email: larisa.pozhilova@iovation.com
+  svc_acct: false
+  email: larisa.pozhilova@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHF75AJAIQII
+  name: lvermillion
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/lvermillion
+  created: 2019-07-10 21:48:58.000000000 Z
+  last_login: 2020-04-27 20:16:36.000000000 Z
+  user_groups: &30
+  - io_users
+  - Dev
+  groups: *30
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFXZD5YQXM
+    :status: Active
+    :age_days: '292'
+  tags:
+    email: leanne.vermillion@iovation.com
+  svc_acct: false
+  email: leanne.vermillion@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFQTRD4QGBE
+  name: mcunningham
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/mcunningham
+  created: 2019-03-29 16:41:14.000000000 Z
+  last_login: 2020-04-23 23:44:42.000000000 Z
+  user_groups: &31
+  - io_users
+  - IT
+  groups: *31
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFU2LZMURC
+    :status: Active
+    :age_days: '348'
+  tags:
+    email: melissa.cunningham@iovation.com
+  svc_acct: false
+  email: melissa.cunningham@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFTY24V2SW5
+  name: mfranz
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/mfranz
+  created: 2020-04-21 18:09:38.000000000 Z
+  last_login: 2020-04-27 20:08:41.000000000 Z
+  user_groups: &32
+  - io_users
+  - C2_team
+  groups: *32
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFWW2SNC5Z
+    :status: Active
+    :age_days: '7'
+  tags:
+    email: michelle.franz@iovation.com
+  svc_acct: false
+  email: michelle.franz@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFTWAQSR23A
+  name: mlee
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/mlee
+  created: 2020-01-29 23:22:08.000000000 Z
+  last_login: 2020-01-30 22:02:22.000000000 Z
+  user_groups: &33
+  - io_users
+  - IT
+  groups: *33
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFWA26DCFY
+    :status: Active
+    :age_days: '89'
+  tags:
+    email: mike.lee@iovation.com
+  svc_acct: false
+  email: mike.lee@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFYABHAB6YN
+  name: mmahoney
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/mmahoney
+  created: 2019-05-22 16:28:48.000000000 Z
+  last_login: 2020-04-22 15:16:22.000000000 Z
+  user_groups: &34
+  - io_users
+  - IT
+  groups: *34
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFWNS7UGAS
+    :status: Active
+    :age_days: '342'
+  tags:
+    email: matt.mahoney@iovation.com
+  svc_acct: false
+  email: matt.mahoney@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHF3UX5ZFQNS
+  name: mreinker
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/mreinker
+  created: 2019-09-23 16:46:12.000000000 Z
+  last_login: 2019-12-04 18:28:03.000000000 Z
+  user_groups: &35
+  - io_users
+  - Dev
+  groups: *35
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFYPLG35SH
+    :status: Active
+    :age_days: '193'
+  tags:
+    email: matt.reinker@iovation.com
+  svc_acct: false
+  email: matt.reinker@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHF4JD6TWZDS
+  name: mwilliams
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/mwilliams
+  created: 2020-01-15 17:57:02.000000000 Z
+  last_login: 
+  user_groups: &36
+  - io_users
+  - IT
+  groups: *36
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFXSTLKSV3
+    :status: Active
+    :age_days: '104'
+  tags:
+    email: matthew.williams@iovation.com
+  svc_acct: false
+  email: matthew.williams@iovation.com
+- !ruby/object:IamUser
+  id: AIDAI4NQGQ477CASBUOV4
+  name: neustar
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/neustar
+  created: 2017-09-25 23:27:27.000000000 Z
+  last_login: 
+  user_groups: &37
+  - NeustarGeoIpBucket-ReadWrite
+  groups: *37
+  policies: []
+  keys:
+  - :id: AKIAISTF5VX3H2VJHQSA
+    :status: Active
+    :age_days: '942'
+  tags:
+    email: teamf2@iovation.com
+  svc_acct: false
+  email: teamf2@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFR7VB4SOZX
+  name: obailey
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/obailey
+  created: 2019-09-23 16:51:08.000000000 Z
+  last_login: 2020-04-22 23:57:24.000000000 Z
+  user_groups: &38
+  - io_users
+  - Dev
+  groups: *38
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFRICJZBFC
+    :status: Active
+    :age_days: '192'
+  tags:
+    email: olivia.bailey@iovation.com
+  svc_acct: false
+  email: olivia.bailey@iovation.com
+- !ruby/object:IamUser
+  id: AIDAIO5UUUCQ5TN4NYNMK
+  name: rchau
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/rchau
+  created: 2019-02-06 22:18:01.000000000 Z
+  last_login: 2020-04-27 21:13:28.000000000 Z
+  user_groups: &39
+  - io_users
+  - IT
+  - Dev
+  groups: *39
+  policies: []
+  keys:
+  - :id: AKIAJWCLS4PX3LH3LHWQ
+    :status: Active
+    :age_days: '446'
+  tags:
+    email: ron.chau@iovation.com
+  svc_acct: false
+  email: ron.chau@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFSHPVKYKFX
+  name: rmaurino
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/rmaurino
+  created: 2020-04-21 18:52:31.000000000 Z
+  last_login: 2020-04-27 18:43:15.000000000 Z
+  user_groups: &40
+  - io_users
+  - C2_team
+  groups: *40
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHF7JUJ73WJ
+    :status: Active
+    :age_days: '0'
+  - :id: AKIASZSZKGHF23UQRNO2
+    :status: Active
+    :age_days: '6'
+  tags:
+    email: ricardo.maurino@iovation.com
+  svc_acct: false
+  email: ricardo.maurino@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJZ5RTLJPAPZHRRDDS
+  name: spowers
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/spowers
+  created: 2017-02-12 05:16:35.000000000 Z
+  last_login: 2020-03-03 17:51:26.000000000 Z
+  user_groups: &41
+  - io_users
+  - IT
+  groups: *41
+  policies: []
+  keys:
+  - :id: AKIAI2JZLG42RSIEPA4A
+    :status: Active
+    :age_days: '774'
+  tags:
+    email: sam.powers@iovation.com
+  svc_acct: false
+  email: sam.powers@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJWEHWBVVQQ2CNXBJG
+  name: svc_ci_asset
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/svc_ci_asset
+  created: 2016-02-23 23:57:24.000000000 Z
+  last_login: 
+  user_groups: &42 []
+  groups: *42
+  policies:
+  - asset-ci-S3-RW_access
+  keys:
+  - :id: AKIAJ2HAQVPG6QWJ6OXQ
+    :status: Active
+    :age_days: '1525'
+  tags:
+    email: f3_chips@iovation.com
+  svc_acct: true
+  email: f3_chips@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJGDFBORUOHJ7LT73M
+  name: svc_ci_geodata
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/svc_ci_geodata
+  created: 2017-09-28 21:21:51.000000000 Z
+  last_login: 
+  user_groups: &43
+  - NeustarGeoIpBucket-ReadOnly
+  groups: *43
+  policies: []
+  keys:
+  - :id: AKIAI2AA46OSWLV7UA5Q
+    :status: Active
+    :age_days: '921'
+  tags:
+    email: teamf2@iovation.com
+  svc_acct: true
+  email: teamf2@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJ6UEX54LUK4CY76OY
+  name: svc_emr
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/svc_emr
+  created: 2018-01-31 17:01:54.000000000 Z
+  last_login: 
+  user_groups: &44 []
+  groups: *44
+  policies:
+  - KMS_key_test
+  keys:
+  - :id: AKIAILMWX2SLMFA2UNBQ
+    :status: Active
+    :age_days: '818'
+  tags:
+    email: datascience@iovation.com
+  svc_acct: true
+  email: datascience@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJOR33XFQPD6QSSKTS
+  name: svc_log_archiver
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/svc_log_archiver
+  created: 2018-06-21 16:53:53.000000000 Z
+  last_login: 
+  user_groups: &45
+  - S3_write_only
+  groups: *45
+  policies: []
+  keys:
+  - :id: AKIAJR5Y5KXFXPN3E6UA
+    :status: Active
+    :age_days: '677'
+  tags:
+    email: sre-tools@iovation.com
+  svc_acct: true
+  email: sre-tools@iovation.com
+- !ruby/object:IamUser
+  id: AIDAILLVBDLAHXWH22W3Q
+  name: svc_log_cloudflare
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/svc_log_cloudflare
+  created: 2019-03-04 21:52:39.000000000 Z
+  last_login: 
+  user_groups: &46 []
+  groups: *46
+  policies: []
+  keys:
+  - :id: AKIAJEFV3ZWEHMFSNAZQ
+    :status: Active
+    :age_days: '420'
+  - :id: AKIAIX77W76SWE7F63BA
+    :status: Active
+    :age_days: '420'
+  tags:
+    email: sre-product@iovation.com
+  svc_acct: true
+  email: sre-product@iovation.com
+- !ruby/object:IamUser
+  id: AIDAIBX2DSUHTX66K24BK
+  name: svc_np_snowflake
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/svc_np_snowflake
+  created: 2019-02-01 18:30:09.000000000 Z
+  last_login: 
+  user_groups: &47
+  - NeustarGeoIpBucket-ReadOnly
+  - CloudflareLogs-readonly
+  groups: *47
+  policies: []
+  keys:
+  - :id: AKIAJWZWYG5JBPRWY5XA
+    :status: Active
+    :age_days: '451'
+  tags:
+    email: team42@iovation.com
+  svc_acct: true
+  email: team42@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJXZJCKINQNEOHB274
+  name: svc_pr_asset
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/svc_pr_asset
+  created: 2015-12-09 21:34:00.000000000 Z
+  last_login: 
+  user_groups: &48 []
+  groups: *48
+  policies:
+  - asset-prod-S3-RW_access
+  keys:
+  - :id: AKIAIMBN3ZQTBFU572KA
+    :status: Active
+    :age_days: '1601'
+  tags:
+    email: f3_chips@iovation.com
+  svc_acct: true
+  email: f3_chips@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJQKK5UGMK4UDFJMU4
+  name: svc_pr_geodata
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/svc_pr_geodata
+  created: 2017-09-28 21:21:51.000000000 Z
+  last_login: 
+  user_groups: &49
+  - NeustarGeoIpBucket-ReadOnly
+  groups: *49
+  policies: []
+  keys:
+  - :id: AKIAJLXDQCYDFIPWGBIQ
+    :status: Active
+    :age_days: '921'
+  tags:
+    email: teamf2@iovation.com
+  svc_acct: true
+  email: teamf2@iovation.com
+- !ruby/object:IamUser
+  id: AIDAJJ5OAGQ7EMYI6J6J6
+  name: svc_pr_snowflake
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/svc_pr_snowflake
+  created: 2018-03-06 19:12:12.000000000 Z
+  last_login: 
+  user_groups: &50
+  - NeustarGeoIpBucket-ReadOnly
+  - CloudflareLogs-readonly
+  groups: *50
+  policies: []
+  keys:
+  - :id: AKIAJVW5NBDXK23M5YZQ
+    :status: Active
+    :age_days: '441'
+  tags:
+    email: team42@iovation.com
+  svc_acct: true
+  email: team42@iovation.com
+- !ruby/object:IamUser
+  id: AIDAIR6DXIL6VQYQKEMQ6
+  name: svc_qa_asset
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/svc_qa_asset
+  created: 2015-12-09 21:34:00.000000000 Z
+  last_login: 
+  user_groups: &51 []
+  groups: *51
+  policies:
+  - asset-qa-S3-RW_access
+  keys:
+  - :id: AKIAJRC4FDULHMW2P2CA
+    :status: Active
+    :age_days: '1601'
+  tags:
+    email: f3_chips@iovation.com
+  svc_acct: true
+  email: f3_chips@iovation.com
+- !ruby/object:IamUser
+  id: AIDAIS7SXNLTKZ4MFEMMK
+  name: svc_qa_geodata
+  mfa: false
+  arn: arn:aws:iam::192387101131:user/svc_qa_geodata
+  created: 2017-09-28 21:21:51.000000000 Z
+  last_login: 
+  user_groups: &52
+  - NeustarGeoIpBucket-ReadOnly
+  groups: *52
+  policies: []
+  keys:
+  - :id: AKIAJ4632B7M6HVNICGQ
+    :status: Active
+    :age_days: '942'
+  tags:
+    email: teamf2@iovation.com
+  svc_acct: true
+  email: teamf2@iovation.com
+- !ruby/object:IamUser
+  id: AIDAIQEGLCATC7T5OOQOW
+  name: tcarlson
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/tcarlson
+  created: 2017-07-18 16:08:39.000000000 Z
+  last_login: 2019-12-03 00:53:09.000000000 Z
+  user_groups: &53
+  - io_users
+  - IT
+  groups: *53
+  policies: []
+  keys:
+  - :id: AKIAIQC6PQIXOCM2FECQ
+    :status: Active
+    :age_days: '1015'
+  tags:
+    email: tony.carlson@iovation.com
+  svc_acct: false
+  email: tony.carlson@iovation.com
+- !ruby/object:IamUser
+  id: AIDASZSZKGHFU2DGLD6NY
+  name: thhealy
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/thhealy
+  created: 2019-09-23 22:36:29.000000000 Z
+  last_login: 2020-04-15 18:03:54.000000000 Z
+  user_groups: &54
+  - io_users
+  - IT
+  groups: *54
+  policies: []
+  keys: []
+  tags:
+    email: tom.healy@iovation.com
+  svc_acct: false
+  email: tom.healy@iovation.com
+- !ruby/object:IamUser
+  id: AIDAINVX4WPHQGS35OZAO
+  name: togdon
+  mfa: true
+  arn: arn:aws:iam::192387101131:user/togdon
+  created: 2015-01-22 23:34:37.000000000 Z
+  last_login: 2020-03-17 20:59:26.000000000 Z
+  user_groups: &55
+  - io_users
+  - IT
+  groups: *55
+  policies: []
+  keys:
+  - :id: AKIASZSZKGHFTV2Y7E7X
+    :status: Active
+    :age_days: '76'
+  tags:
+    email: travis.ogdon@iovation.com
+  svc_acct: false
+  email: travis.ogdon@iovation.com
