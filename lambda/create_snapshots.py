@@ -34,7 +34,6 @@ import requests
 ec = boto3.client('ec2')
 iam = boto3.client('iam')
 
-
 def post_to_slack(text, instance_name, snapshot_count, expire_date):
     webhook_url = os.environ['SLACK_HOOK_URL']
     slack_data = {
@@ -50,7 +49,7 @@ def post_to_slack(text, instance_name, snapshot_count, expire_date):
             }
             ]
     }
-
+    
     response = requests.post(
         webhook_url, data=json.dumps(slack_data),
         headers={'Content-Type': 'application/json'}
@@ -75,7 +74,7 @@ def lambda_handler(event, context):
     except Exception as e:
         # use the exception message to get the account ID the function executes under
         account_ids.append(re.search(r'(arn:aws:sts::)([0-9]+)', str(e)).groups()[1])
-
+    
     reservations = ec.describe_instances(
         Filters=[
             {'Name': 'tag-key', 'Values': ['backup', 'Backup']},
@@ -83,16 +82,15 @@ def lambda_handler(event, context):
     ).get(
         'Reservations', []
     )
-
     instances = [
         i for r in reservations
         for i in r['Instances']
     ]
-
+    
     print("Found %d instances that need backing up" % len(instances))
-
+    
     to_tag = collections.defaultdict(list)
-
+    
     for instance in instances:
         try:
             retention_days = [
@@ -100,49 +98,51 @@ def lambda_handler(event, context):
                 if t['Key'] == 'retention'][0]
         except IndexError:
             retention_days = 14
-
+        
         for dev in instance['BlockDeviceMappings']:
             if dev.get('Ebs', None) is None:
                 continue
             vol_id = dev['Ebs']['VolumeId']
             print("Found EBS volume %s on instance %s" % (
                 vol_id, instance['InstanceId']))
-
             instance_name = [
                 t.get('Value') for t in instance['Tags']
                 if t['Key'] == 'Name'][0]
-
             snap = ec.create_snapshot(
                 VolumeId=vol_id,
                 Description=instance_name,
+                TagSpecifications=[
+                    {
+                        'ResourceType': 'snapshot',
+                        'Tags': [
+                            {'Key': 'InstanceName','Value': instance_name}
+                        ]
+                    }
+                ]
             )
-
             to_tag[retention_days].append(snap['SnapshotId'])
-
-            status_msg = "Retaining snapshot %s \nof volume %s \nfrom instance '%s' for %d days" % (
+            
+            status_msg = "Retaining snapshot %s of volume %s \nfrom instance '%s' for %d days" % (
                 snap['SnapshotId'],
                 vol_id,
                 instance_name,
                 retention_days,
             )
             print(status_msg)
-
-    for retention_days in list(to_tag.keys()):
-        delete_date = datetime.date.today() + datetime.timedelta(days=retention_days)
-        delete_fmt = delete_date.strftime('%Y-%m-%d')
-        print("Will delete %d snapshots on %s" % (len(to_tag[retention_days]), delete_fmt))
-        ec.create_tags(
-            Resources=to_tag[retention_days],
-            Tags=[
-                {'Key': 'DeleteOn', 'Value': delete_fmt},
-                {'Key': 'InstanceName', 'Value': instance_name},
+            
+            delete_date = datetime.date.today() + datetime.timedelta(days=retention_days)
+            delete_fmt = delete_date.strftime('%Y-%m-%d')
+            print("Will delete %d snapshots on %s" % (len(to_tag[retention_days]), delete_fmt))
+            ec.create_tags(
+                Resources=to_tag[retention_days],
+                Tags=[
+                    {'Key': 'DeleteOn', 'Value': delete_fmt},
+                ]
+            )
+            instance_filter = [
+                {'Name': 'tag-key', 'Values': ['InstanceName']},
+                {'Name': 'tag-value', 'Values': [instance_name]},
             ]
-        )
-        instance_filter = [
-            {'Name': 'tag-key', 'Values': ['InstanceName']},
-            {'Name': 'tag-value', 'Values': [instance_name]},
-        ]
-        snapshot_count = len(ec.describe_snapshots(OwnerIds=account_ids, Filters=instance_filter)['Snapshots'])
-        
-    if 'snap' in locals():
-        post_to_slack("Created snapshot %s" % snap['SnapshotId'], instance_name, snapshot_count, delete_fmt)
+            snapshot_count = len(ec.describe_snapshots(OwnerIds=account_ids, Filters=instance_filter)['Snapshots'])
+            if 'snap' in locals():
+                post_to_slack("Created snapshot %s" % snap['SnapshotId'], instance_name, snapshot_count, delete_fmt)
