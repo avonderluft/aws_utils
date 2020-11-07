@@ -14,6 +14,7 @@ module AwsSetup
       puts 'AWS CLI is not found.  Ensure that it is installed, and in your path.  Exiting.'.red
       exit
     end
+    Aws.use_bundled_cert!
     FileUtils.mkdir_p CACHE_PATH
     return if cached
 
