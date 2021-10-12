@@ -1,6 +1,6 @@
 ---
 - !ruby/object:S3Bucket
-  id: 70260353143360
+  id: 70172636943880
   name: test-1
   region: us-west-2
   encryption: {}
@@ -10,7 +10,7 @@
   - Do the other thing(Disabled)
   created: 2020-02-28 05:49:36.000000000 Z
 - !ruby/object:S3Bucket
-  id: 70260353141100
+  id: 70172636942680
   name: test-2
   region: us-west-2
   encryption: {}
@@ -20,7 +20,7 @@
   - Do the other thing(Disabled)
   created: 2020-02-28 05:50:09.000000000 Z
 - !ruby/object:S3Bucket
-  id: 70260353139140
+  id: 70172636941360
   name: test-3
   region: us-west-2
   encryption: {}
