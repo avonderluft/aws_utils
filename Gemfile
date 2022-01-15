@@ -15,7 +15,6 @@ gem 'rake'
 
 group :development do
   gem 'coderay'
-  gem 'parallel', '~> 1.13.0'
   gem 'pry'
   gem 'pry-theme'
   gem 'rspec'
