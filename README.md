@@ -11,32 +11,18 @@ This project has been written, tested, and run exclusively on MacOS. The instruc
 * AWS programatic access via key and secret, normally saved in ~/.aws/credentials
 * IAM permissions for the specific services you wish to query
 * ruby installed, with gems rake and bundler (these are pre-installed with current ruby versions)
-* Optional: a ruby version manager, e.g. chruby or rbenv
-  * chruby install directions below in Installation
-  * RVM is not recommended
+* Optional: a ruby version manager, e.g. rbenv or chruby (RVM is not recommended)
+  * e.g. rbenv - see docs at https://github.com/rbenv/rbenv
+  * After updating it, (re-)source your shell.rc, e.g. `source ~/.bashrc` or `source ~/.zshrc`
+* Optional: install other rubies according to preference
 
 ## Installation
 
 ### Install
 
-* clone the repo into your desired directory `git clone <repo_url>  ./aws_rakes`
-* install chruby - see docs at https://github.com/postmodern/chruby
-  * `brew install chruby ruby-build ruby-install wget`
-  * add to your shell.rc: 
-  
-```
- source /usr/local/share/chruby/chruby.sh
- source /usr/local/share/chruby/auto.sh
-```
-
-* (re-)source your shell.rc, e.g. `source ~/.bashrc` or `source ~/.zshrc`
-
-* Install specified ruby version: 
-
-```
-ruby-install ruby `cat .aws_rakes/.ruby-version`
-```
-* Optional: install other rubies according to preference
+* clone the repo into your desired directory `git clone git@github.com:avonderluft/aws_rakes.git`
+* `cd aws_rakes`
+* Install specified ruby version: ` rbenv install `cat .ruby-version``
 * `cd aws_rakes`
 * confirm ruby version: `ruby -v`
 * run `bundle install` (if you are using system ruby, `sudo bundle install`)
@@ -81,7 +67,7 @@ The 'lambda' directory contains a few helpful scripts which can run on AWS Lambd
 
 ## Todo
 
-* add some intelligent tests, maybe?
+* add some more intelligent tests, maybe?
 
 ## Contributing
 
