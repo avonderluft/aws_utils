@@ -3,29 +3,14 @@ AllCops:
     - 'audit_reports/**/*'
     - 'cache/**/*'
     - 'lambda/**/*'
-Metrics/LineLength:
-  Enabled: false
-Metrics/BlockLength:
-  # this is too overhwelming to even look at for now
-  Enabled: false
-Metrics/PerceivedComplexity:
-  # this is too overhwelming to even look at for now
-  Enabled: false
-Metrics/AbcSize:
-  # this is too overhwelming to even look at for now
-  Enabled: false
+  NewCops: enable
+# Stuff I want more lax than the defaults
 Metrics/MethodLength:
-  # this is too overhwelming to even look at for now
+  Max: 25
+Metrics/BlockLength:
+  Max: 40
+# Stuff I don't want to worry about for now
+Metrics/AbcSize:
   Enabled: false
 Metrics/CyclomaticComplexity:
-  Enabled: false
-Metrics/ClassLength:
-  Enabled: false
-Metrics/ParameterLists:
-  Enabled: false
-Security/YAMLLoad:
-  Enabled: false
-Style/Documentation:
-  Enabled: false
-Style/MixinUsage:
   Enabled: false

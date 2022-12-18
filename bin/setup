@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+puts 'Installing brew packages...'
+%w[awscli eksctl rbenv ruby-build].each do |p|
+  system "brew upgrade #{p} -q"
+end
+ruby_version = `cat ../.ruby-version`.chomp
+puts "Checking for ruby version #{ruby_version}..."
+system "rbenv install #{ruby_version}" unless system "rbenv local #{ruby_version}"
+system "rbenv local #{ruby_version}"
+system 'bundle install'
+puts 'aws_rakes setup is complete!'

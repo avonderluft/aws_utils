@@ -1,5 +1,8 @@
 ---
-default_region: us-west-2
-second_default_region: us-east-1
 cache_expire_minutes: 30
+regions_cache_expire_minutes: 1440 # 1 day
 stale_key_days: 365
+# remove all region filters in include all accessible regions
+region_filters:
+  - 'us-'
+

@@ -2,10 +2,22 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require_relative '../lib/aws_utils'
-
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
-
 require 'pry'
-Pry.start
+require_relative '../lib/ec2_utils'
+require_relative '../lib/kms_utils'
+require_relative '../lib/s3_utils'
+require_relative '../lib/snap_utils'
+require_relative '../lib/user_utils'
+require_relative '../lib/vol_utils'
+
+# test starting with e.g. `e = Ec2Utils.new`
+
+Dir.chdir "#{File.expand_path(__dir__)}/../" do
+  def reload!
+    files = Dir.glob('lib/**/*.rb')
+    files.delete_if { |f| f.include? 'constants' }
+    files.each { |f| load f }
+  end
+
+  Pry.start
+end

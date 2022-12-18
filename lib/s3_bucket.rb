@@ -1,20 +1,26 @@
 # frozen_string_literal: true
 
+# to contain data from an AWS S3 Bucket
 class S3Bucket
-  attr_reader :id, :name, :region, :encryption, :logging, :rules, :created
+  attr_reader :id, :name, :created, :region, :encryption, :logging, :rules, :tags
+
   def initialize(bucket, region, s3_client)
     @id = bucket.object_id
     @name = bucket.name
+    @created = bucket.creation_date
     @region = region
     @encryption = bucket_encryption(s3_client)
     @logging = bucket_logging(s3_client)
     @rules = bucket_lifecycle_rules(s3_client)
-    @created = bucket.creation_date
+    @tags = bucket_tagging(s3_client)
   end
 
-  def created_date
-    created.to_s.split.first
+  def output_summary
+    puts DIVIDER
+    ap summary, indent: -2, multiline: true, index: false, color: { string: status_color }
   end
+
+  private
 
   def bucket_encryption(s3_client)
     rules = s3_client.get_bucket_encryption(bucket: name).server_side_encryption_configuration.rules
@@ -25,20 +31,32 @@ class S3Bucket
   rescue Aws::S3::Errors::ServerSideEncryptionConfigurationNotFoundError
     {}
   rescue StandardError => e
-    puts e.message.yellow
+    puts e.message.warning
     {}
   end
 
   def bucket_logging(s3_client)
     logging_response = s3_client.get_bucket_logging(bucket: name).logging_enabled
     logging_response ? logging_response.target_bucket : 'none'
+  rescue Aws::S3::Errors::PermanentRedirect => e
+    puts e.message.warning
+  end
+
+  def bucket_tagging(s3_client)
+    resp = s3_client.get_bucket_tagging(bucket: name)
+    resp.tag_set.map { |t| "#{t.key}: #{t.value}" }
+  rescue Aws::S3::Errors::NoSuchTagSet
+    []
+  rescue Aws::S3::Errors::PermanentRedirect => e
+    puts e.message
+    exit
   end
 
   def bucket_lifecycle_rules(s3_client)
     rules_array = []
     bucket_rules = s3_client.get_bucket_lifecycle(bucket: name).rules
     bucket_rules.each do |br|
-      rules_array << "#{br.id}(#{br.status})"
+      rules_array << "#{br.id} (#{br.status})"
     end
     rules_array
   rescue Aws::S3::Errors::NoSuchLifecycleConfiguration
@@ -46,6 +64,16 @@ class S3Bucket
   rescue StandardError => e
     puts e.message.red
     []
+  end
+
+  def status_color
+    if encryption.empty?
+      'light_red'
+    elsif logging == 'none'
+      'yellow'
+    else
+      'light_green'
+    end
   end
 
   def encryption_output
@@ -56,23 +84,9 @@ class S3Bucket
     end
   end
 
-  def rules_output
-    rules.join(', ').strip.chomp(',')
-  end
-
-  def status_color
-    if encryption.empty?
-      'light_red'
-    elsif logging == 'none'
-      'light_yellow'
-    else
-      'light_green'
-    end
-  end
-
-  def output_info
-    output = { Name: name, Region: region, Encryption: encryption_output,
-               Logging: logging, Rules: rules_output, Created: created_date }
-    ap output, indent: 1, no_index: true, color: { string: status_color }
+  def summary
+    display_region = region.empty? ? 'global' : region
+    { ID_Name: "#{id} - #{name}", Created: created, Region: display_region,
+      Encryption: encryption_output, Logging: logging, Rules: rules, Tags: tags }
   end
 end

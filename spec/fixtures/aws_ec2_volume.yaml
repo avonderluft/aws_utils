@@ -1,0 +1,39 @@
+--- !ruby/struct:Aws::EC2::Types::Volume
+attachments:
+- !ruby/struct:Aws::EC2::Types::VolumeAttachment
+  attach_time: 2020-06-23 04:25:25.000000000 Z
+  device: "/dev/xvda"
+  instance_id: i-00000000000001
+  state: attached
+  volume_id: vol-abcdef1234567890
+  delete_on_termination: true
+availability_zone: us-west-2c
+create_time: 2020-06-23 04:25:26.000000000 Z
+encrypted: true
+kms_key_id: arn:aws:kms:us-west-2:777777777777:key/88888888-1111-2222-3333-bbbbbbbbbbbb
+outpost_arn:
+size: 404
+snapshot_id: snap-000000000000001
+state: in-use
+volume_id: vol-abcdef1234567890
+iops: 3000
+tags:
+- !ruby/struct:Aws::EC2::Types::Tag
+  key: backup
+  value: 'true'
+- !ruby/struct:Aws::EC2::Types::Tag
+  key: apps
+  value: virtualmin
+- !ruby/struct:Aws::EC2::Types::Tag
+  key: Name
+  value: test_vmin1
+- !ruby/struct:Aws::EC2::Types::Tag
+  key: email
+  value: admin@example.com
+- !ruby/struct:Aws::EC2::Types::Tag
+  key: retention
+  value: '5'
+volume_type: gp3
+fast_restored:
+multi_attach_enabled: false
+throughput: 125

@@ -1,0 +1,7 @@
+--- !ruby/object:AwsUtils
+cli: "/opt/homebrew/bin/aws"
+default_region: us-east-1
+ec2_client: fake_object
+user_id: ABC123ABC123ABC123ABC
+user_name: nobody
+owner_id: '01010101010101'

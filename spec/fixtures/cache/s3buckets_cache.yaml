@@ -1,31 +1,31 @@
 ---
 - !ruby/object:S3Bucket
-  id: 9280
+  id: 70251444457777
   name: test-1
   region: us-west-2
-  encryption: {}
+  encryption:
+    algorithm: aws:kms
+    key: arn:aws:kms:us-west-2:xxxxxx
   logging: none
-  rules:
-  - Do the thing(Enabled)
-  - Do the other thing(Disabled)
+  rules: []
   created: 2020-02-28 05:49:36.000000000 Z
 - !ruby/object:S3Bucket
-  id: 9300
+  id: 70251444448888
   name: test-2
   region: us-west-2
-  encryption: {}
+  encryption:
+    algorithm: aws:kms
+    key: arn:aws:kms:us-west-2:yyyyyy
   logging: none
   rules:
-  - Do the thing(Enabled)
-  - Do the other thing(Disabled)
+  - Move to IA after 90 days(Enabled)
   created: 2020-02-28 05:50:09.000000000 Z
 - !ruby/object:S3Bucket
-  id: 9320
+  id: 70251444429999
   name: test-3
-  region: us-west-2
+  region: us-east-1
   encryption: {}
   logging: none
   rules:
-  - Do the thing(Enabled)
-  - Do the other thing(Disabled)
+  - Move to IA after 90 days(Enabled)
   created: 2020-02-28 05:50:59.000000000 Z

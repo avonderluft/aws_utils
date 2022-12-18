@@ -16,6 +16,12 @@ GEM
     aws-sdk-ec2 (1.293.0)
       aws-sdk-core (~> 3, >= 3.125.0)
       aws-sigv4 (~> 1.1)
+    aws-sdk-ecs (1.94.0)
+      aws-sdk-core (~> 3, >= 3.125.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-eks (1.71.0)
+      aws-sdk-core (~> 3, >= 3.125.0)
+      aws-sigv4 (~> 1.1)
     aws-sdk-iam (1.65.0)
       aws-sdk-core (~> 3, >= 3.125.0)
       aws-sigv4 (~> 1.1)
@@ -77,6 +83,10 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.15.1)
       parser (>= 3.0.1.1)
+    rubocop-rake (0.6.0)
+      rubocop (~> 1.0)
+    rubocop-rspec (2.11.1)
+      rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     simplecov (0.21.2)
       docile (~> 1.1)
@@ -88,6 +98,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  arm64-darwin-22
   x86_64-darwin-21
   x86_64-linux
 
@@ -95,7 +106,10 @@ DEPENDENCIES
   awesome_print
   aws-sdk-costexplorer
   aws-sdk-ec2
+  aws-sdk-ecs
+  aws-sdk-eks
   aws-sdk-iam
+  aws-sdk-kms
   aws-sdk-lambda
   aws-sdk-rds
   aws-sdk-s3
@@ -107,7 +121,9 @@ DEPENDENCIES
   rake
   rspec
   rubocop
+  rubocop-rake
+  rubocop-rspec
   simplecov
 
 BUNDLED WITH
-   2.2.32
+   2.3.25

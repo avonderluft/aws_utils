@@ -1,73 +1,35 @@
+---
 - !ruby/object:Ec2Instance
   id: i-00000000000001
+  name: test_name
   region: us-west-2
-  tags:
-    Owner: Tom Slick
-    Team: Sales
-    Name: sales_demo_encrypted
-    Type: demo
-  name: sales_demo_encrypted
-  type: demo
-  team: Sales
-  owner: Tom Slick
-  public_ip: 52.35.35.35
-  private_ip: 172.30.0.1
-  key_name: INF-9999
-  az: us-west-2b
-  launch_time: 2020-02-10 23:10:52.000000000 Z
-  ami: ami-00000000000001
-  monitoring: disabled
-  instance_type: m4.large
-  state: running
-  uptime: 78 days
+  az: us-west-2c
+  instance_type: t3a.large
+  platform: Linux/UNIX
+  cores: '1'
+  public_ip: 54.214.54.39
+  private_ip: 172.31.9.68
+  subnet: subnet-c36ba19a
+  vpc: vpc-44219821
+  key_name: test_demo
+  launch_time: 2022-09-12 17:06:31.000000000 Z
+  ami: ami-19191919191919191
   sec_groups:
-  - negation_ssh
-  - 22work80world
-- !ruby/object:Ec2Instance
-  id: i-00000000000002
-  region: us-west-2
-  tags:
-    Name: smtp_encrypted
-    Team: Security
-    Owner: Adam First
-    Type: smtp
-  name: smtp_encrypted
-  type: smtp
-  team: Security
-  owner: Adam First
-  public_ip: 34.215.21.21
-  private_ip: 172.30.0.2
-  key_name: inf-2398
-  az: us-west-2b
-  launch_time: 2020-02-11 19:37:45.000000000 Z
-  ami: ami-00000000000002
+  - test_demo_public_web
   monitoring: disabled
-  instance_type: t2.micro
   state: running
-  uptime: 77 days
-  sec_groups:
-  - negation_ssh
-  - smtp_imap
-- !ruby/object:Ec2Instance
-  id: i-0000000000000
-  region: us-west-2
+  uptime: 92 days
+  block_devices:
+  - :name: "/dev/xvda"
+    :volume_id: vol-abcdef1234567890
+    :status: attached
+    :attach_time: 2020-06-23 04:25:25.000000000 Z
+    :delete_on_termination: true
   tags:
-    Type: Testing
-    Owner: Jerry Krew
-    Name: jk-np-test-us-west-az2
-  name: jk-np-test-us-west-az2
-  type: Testing
-  team: ''
-  owner: Jerry Krew
-  public_ip:
-  private_ip: 10.215.0.1
-  key_name: jb
-  az: us-west-2b
-  launch_time: 2020-04-03 22:14:19.000000000 Z
-  ami: ami-00000000000003
-  monitoring: disabled
-  instance_type: t2.micro
-  state: running
-  uptime: 25 days
-  sec_groups:
-  - us-west-2-np-sg
+    Team: sysadmin
+    retention: '1'
+    Type: webserver
+    Owner: Aaron Wonderbar
+    email: admin@demo.net
+    backup: 'true'
+    apps: virtualmin
