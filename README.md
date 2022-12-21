@@ -7,7 +7,7 @@
 ```
 # AWS Utils
 
-Rake tasks for querying AWS resources using published AWS Ruby SDKs.  The intention is to enable viewing AWS resources, aggregated, sliced and diced, without having to piece things together in the AWS console.
+The project is a means for getting familiar the AWS Ruby SDKs in practice.  It sets up rake tasks for querying AWS resources using the published APIs.  The intention is to enable viewing AWS resources, aggregated, sliced and diced, without having to piece things together in the AWS console.
 
 The rake tasks are non-destructive by design, i.e. informational only.  Actually manipulation of resources should probably be done some IaC tool like [Terraform](https://www.terraform.io/ "Terraform by HashiCorp").
 
@@ -125,7 +125,7 @@ The 'lambda' directory contains a few example scripts
 
 ## Todos
 
-* code for more AWS services, e.g. EKS and ECS
+* code for more AWS services, e.g. ECS, and expanding EKS
 * write tests for all the services covered
 
 ## Contributing

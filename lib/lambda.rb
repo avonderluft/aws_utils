@@ -18,12 +18,12 @@ class Lambda
 
   def output_summary
     puts DIVIDER
-    ap summary, indent: -2, multiline: true, color: { string: state_color }
+    ap summary, indent: -2, multiline: true, color: { string: status_color }
   end
 
   private
 
-  def state_color
+  def status_color
     'light_green'
   end
 

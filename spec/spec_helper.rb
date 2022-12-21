@@ -53,7 +53,6 @@ RSpec.configure do |config|
         'Arn' => 'arn:aws:iam::777777777777:user/nobody'
       }
     )
-    allow_any_instance_of(Ec2Utils).to receive(:instance_types).and_return(['us-west-2'])
     stub_const('CACHE_PATH', "#{fixtures_dir}/cache")
     FileUtils.cp Dir.glob("#{fixtures_dir}/*_cache.yaml"), "#{fixtures_dir}/cache/"
     allow(AwsUtils).to receive(:cached?).with(anything).and_return(true)

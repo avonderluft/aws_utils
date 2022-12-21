@@ -4,13 +4,14 @@
 require 'bundler/setup'
 require 'pry'
 require_relative '../lib/ec2_utils'
+require_relative '../lib/eks_utils'
 require_relative '../lib/kms_utils'
 require_relative '../lib/s3_utils'
 require_relative '../lib/snap_utils'
 require_relative '../lib/user_utils'
 require_relative '../lib/vol_utils'
 
-# test starting with e.g. `e = Ec2Utils.new`
+# test starting with e.g. `ec2u = Ec2Utils.new`
 
 Dir.chdir "#{File.expand_path(__dir__)}/../" do
   def reload!
