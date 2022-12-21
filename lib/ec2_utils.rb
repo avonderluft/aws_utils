@@ -12,7 +12,7 @@ class Ec2Utils < AwsUtils
     puts LINE
     found_instances = ec2s.select { |i| i.name == id_or_name }
     found_instances = ec2s.select { |i| i.id.include? id_or_name } if found_instances.empty?
-    found_instances.each { |ec2| output_object(ec2, ec2.state_color) }
+    found_instances.each { |ec2| output_object(ec2, ec2.status_color) }
     puts LINE
   end
 
@@ -21,7 +21,7 @@ class Ec2Utils < AwsUtils
     ec2s.each do |ec2|
       puts DIVIDER if ec2s.count > 1 && ec2 != ec2s.first
       puts "Tags for #{ec2.id.identify}"
-      ap ec2.tags, indent: -2, multiline: true, color: { string: ec2.state_color }
+      ap ec2.tags, indent: -2, multiline: true, color: { string: ec2.status_color }
     end
     puts LINE
   end

@@ -85,11 +85,11 @@ RSpec.describe Ec2Instance do
     end
   end
 
-  describe '#state_color' do
+  describe '#status_color' do
     { running: 'light_green', stopped: 'yellow', terminated: 'light_red' }.each_pair do |state, color|
       context "when #{state}" do
         before { ec2.instance_variable_set(:@state, state.to_s) }
-        it { expect(ec2.state_color).to eq color }
+        it { expect(ec2.status_color).to eq color }
       end
     end
   end

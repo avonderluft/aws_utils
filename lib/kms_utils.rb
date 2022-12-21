@@ -25,7 +25,7 @@ class KmsUtils < AwsUtils
 
           keys[0].each do |key|
             region_key = kms_region_client.describe_key(key_id: key.key_id).key_metadata
-            kms_key = KmsKey.new(region_key, region, kms_region_client)
+            kms_key = KmsKey.new(region_key, reg, kms_region_client)
             all_kms_keys << kms_key
           end
           AwsUtils.write_cache('kms_keys', all_kms_keys.uniq)

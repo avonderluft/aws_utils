@@ -1,0 +1,3 @@
+--- !ruby/struct:Aws::S3::Types::Bucket
+name: aws-cloudtrail-logs-776121379736-f5b000e3
+creation_date: 2022-08-29 16:55:00.000000000 Z

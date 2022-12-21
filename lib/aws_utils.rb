@@ -112,7 +112,12 @@ class AwsUtils
       puts DIVIDER + "\n#{region_summary}"
     end
     puts LINE
-    puts "Total #{filter} #{full_set.first.class}s: " + filtered_set.count.to_s.warning + legend
+    descriptor = if full_set.count.positive?
+                   "#{filter} #{full_set.first.class}s"
+                 else
+                   "#{Rake.application.top_level_tasks} items"
+                 end
+    puts "Total #{descriptor}: " + filtered_set.count.to_s.warning + legend
     puts DIVIDER
   end
 
@@ -141,7 +146,7 @@ class AwsUtils
     @ec2_client = Aws::EC2::Client.new region: 'us-east-1'
     system 'aws configure set region us-east-1'
     @default_region = 'us-east-1'
-    puts " - Changed default region to 'us-east-1'".status
+    puts "- Changed default region to 'us-east-1'".status
   rescue Aws::EC2::Errors::RequestExpired => e
     puts e.message.error + ' - Please reauthenticate'.warning
     raise e

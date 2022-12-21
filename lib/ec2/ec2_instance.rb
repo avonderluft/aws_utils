@@ -60,10 +60,10 @@ class Ec2Instance
 
   def output_summary
     puts DIVIDER
-    ap summary, indent: -2, multiline: true, color: { string: state_color }
+    ap summary, indent: -2, multiline: true, color: { string: status_color }
   end
 
-  def state_color
+  def status_color
     case state
     when 'running'    then 'light_green'
     when 'stopped'    then 'yellow'

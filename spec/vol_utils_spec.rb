@@ -79,11 +79,11 @@ RSpec.describe Ec2Volume do
     end
   end
 
-  describe '#state_color' do
+  describe '#status_color' do
     { 'in-use': 'light_green', available: 'yellow' }.each_pair do |state, color|
       context "when #{state}" do
         before { vol.instance_variable_set(:@state, state.to_s) }
-        it { expect(vol.state_color).to eq color }
+        it { expect(vol.status_color).to eq color }
       end
     end
   end

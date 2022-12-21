@@ -33,7 +33,7 @@ class VolUtils < Ec2Utils
     puts LINE
     found_instances = volumes.select { |v| v.id == id }
     found_instances.each do |vol|
-      output_object(vol, vol.state_color)
+      output_object(vol, vol.status_color)
     end
     puts LINE
     puts ec2_detail_instructions

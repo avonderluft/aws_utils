@@ -28,7 +28,7 @@ class Ec2Volume
     @tags = tag_hash
   end
 
-  def state_color
+  def status_color
     if encrypted && state == 'available'
       'yellow'
     else
@@ -50,7 +50,7 @@ class Ec2Volume
 
   def output_summary
     puts DIVIDER
-    ap summary, indent: -2, multiline: true, color: { string: state_color }
+    ap summary, indent: -2, multiline: true, color: { string: status_color }
   end
 
   private
