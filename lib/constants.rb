@@ -11,6 +11,9 @@ CACHE_PATH = File.join(File.dirname(__FILE__), '../cache')
 CONFIG     = YAML.safe_load(File.read("#{File.dirname(__FILE__)}/../config/config.yaml"))
 
 EC2_LEGEND  = '   Green: Running'.go + '   Yellow: Stopped'.warning + '   Red: Terminated'.off
+EKS_LEGEND  = '   Grn: Active/Creating'.go +
+              '  Yel: Pend/Updat/Deleting'.warning +
+              '  Red: Failed'.off
 KMS_LEGEND  = '   Green: Enabled'.go + '   Yellow: No rotation'.warning + '   Red: Disabled'.off
 S3_LEGEND   = '   Green: Encrypted'.go + '   Yellow: No logging'.warning + '   Red: Unencrypted'.off
 SNAP_LEGEND = '   Green: Encrypted'.go + '   Red: Unencrypted'.off
