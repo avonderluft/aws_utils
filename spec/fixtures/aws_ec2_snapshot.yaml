@@ -1,0 +1,24 @@
+--- !ruby/struct:Aws::EC2::Types::Snapshot
+data_encryption_key_id:
+description: ruby_dev
+encrypted: true
+kms_key_id: arn:aws:kms:us-west-2:777777777777:key/3435a249-b0ad-4591-8300-6dbd1197b425
+owner_id: '777777777777'
+progress: 100%
+snapshot_id: snap-00000000000000001
+start_time: 2022-12-23 00:06:40.032000000 Z
+state: completed
+state_message:
+volume_id: vol-abcdef1234567890
+volume_size: 404
+owner_alias:
+outpost_arn:
+tags:
+- !ruby/struct:Aws::EC2::Types::Tag
+  key: InstanceName
+  value: ruby_dev
+- !ruby/struct:Aws::EC2::Types::Tag
+  key: DeleteOn
+  value: '2022-12-24'
+storage_tier: standard
+restore_expiry_time:

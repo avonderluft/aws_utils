@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 require 'fileutils'
+require 'warning'
 require 'simplecov'
+require 'aws_utils'
+
 SimpleCov.start do
   add_filter '/spec/'
 end
@@ -30,7 +33,7 @@ RSpec.configure do |config|
   config.formatter = ENV.fetch('CI', false) == 'true' ? :progress : :documentation
   config.order = :random
   config.shared_context_metadata_behavior = :apply_to_host_groups
-  # config.warnings = true
+  config.warnings = true
 
   config.expect_with :rspec do |expectations|
     expectations.syntax = :expect
@@ -58,3 +61,5 @@ RSpec.configure do |config|
     allow(AwsUtils).to receive(:cached?).with(anything).and_return(true)
   end
 end
+
+Warning.ignore(%r{gems/(aws-sdk|colorize|awesome_print)})

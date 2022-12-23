@@ -1,0 +1,18 @@
+---
+- !ruby/object:Ec2Snapshot
+  id: snap-00000000000000001
+  owner_id: '777777777777'
+  owner_alias:
+  volume_id: vol-abcdef1234567890
+  volume_size: 404
+  storage_tier: standard
+  region: us-west-2
+  created: 2022-12-23 00:06:40.032000000 Z
+  encrypted: true
+  kms_key: arn:aws:kms:us-west-2:777777777777:key/3435a249-b0ad-4591-8300-6dbd1197b425
+  state: completed
+  progress: 100%
+  description: ruby_dev
+  tags:
+    InstanceName: ruby_dev
+    DeleteOn: '2022-12-24'

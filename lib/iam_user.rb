@@ -6,7 +6,6 @@ class IamUser
               :keys, :tags, :svc_acct
 
   def initialize(user, iam_client)
-    @user = user
     @id = user.user_id
     @name = user.user_name
     @mfa = mfa_enabled?(iam_client)
@@ -18,6 +17,21 @@ class IamUser
     @keys = access_keys(iam_client)
     @tags = user_tags(iam_client)
     @svc_acct = user.user_name.start_with? 'svc_'
+  end
+
+  def key_age
+    return 'no keys!' if keys.empty?
+
+    age = 0
+    @key_age ||= begin
+      keys.each do |key|
+        next unless key[:status] == 'Active'
+
+        key_age = key[:age_days]
+        age = key_age if key_age.to_i > age.to_i
+      end
+      age
+    end
   end
 
   def output_summary
@@ -69,21 +83,6 @@ class IamUser
       keys << { id: key.access_key_id, status: key.status, age_days: age_in_days.to_s }
     end
     keys
-  end
-
-  def key_age
-    return 'no keys!' if keys.empty?
-
-    age = 0
-    @key_age ||= begin
-      keys.each do |key|
-        next unless key[:status] == 'Active'
-
-        key_age = key[:age_days]
-        age = key_age if key_age.to_i > age.to_i
-      end
-      age
-    end
   end
 
   def status_color

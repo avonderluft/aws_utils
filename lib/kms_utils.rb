@@ -40,13 +40,20 @@ class KmsUtils < AwsUtils
   end
 
   def show_by_alias(alias_name)
-    keys = kms_keys.select { |k| k.alias_names.join.include? alias_name }
-    output_by_region(keys, "'#{alias_name}'")
+    filtered_keys = kms_keys.select { |k| k.alias_names.join.include? alias_name }
+    output_by_region(kms_keys, "'#{alias_name}'", filtered_keys, KMS_LEGEND)
   end
 
   def show_by_description(description)
     filtered_keys = kms_keys.select { |k| k.description.include? description }
     output_by_region(kms_keys, "'#{description}'", filtered_keys, KMS_LEGEND)
+  end
+
+  def show_by_region(region)
+    raise "'region' must be one of #{region_names}".error unless region_names.include? region
+
+    filtered_keys = kms_keys.select { |k| k.region == region }
+    output_by_region(kms_keys, "'#{region}'", filtered_keys, KMS_LEGEND)
   end
 
   def audit

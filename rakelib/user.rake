@@ -45,12 +45,12 @@ namespace :users do
   desc 'Show all users with no MFA set'
   task :no_mfa do
     check_cache
-    UserUtils.new.show_users_by('No MFA')
+    UserUtils.new.show_users_by('No_MFA')
   end
   desc 'Show all users with stale access keys'
   task :stale_key do
     check_cache
-    UserUtils.new.show_users_by('Stale key')
+    UserUtils.new.show_users_by('Stale_key')
   end
   desc 'Run audit for IAM users and their keys'
   task :audit do

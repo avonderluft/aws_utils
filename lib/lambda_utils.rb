@@ -15,7 +15,11 @@ class LambdaUtils < AwsUtils
         all_lambdas = []
         region_names.each do |region_name|
           client = Aws::Lambda::Client.new(region: region_name)
-          lambdas = client.list_functions.functions
+          begin
+            lambdas = client.list_functions.functions
+          rescue Aws::Lambda::Errors::AccessDeniedException
+            next
+          end
           lambdas.each do |lamb|
             aws_lambda = Lambda.new(lamb, region_name)
             all_lambdas << aws_lambda
@@ -27,10 +31,6 @@ class LambdaUtils < AwsUtils
     end
   end
 
-  def aws_lambdas_by_region(region)
-    lambdas.select { |s| s.region == region }
-  end
-
   def show_by_regions(filter)
     output_by_region(lambdas, filter, lambdas_filter(filter), '')
   end
@@ -38,8 +38,12 @@ class LambdaUtils < AwsUtils
   private
 
   def lambdas_filter(filter)
-    case filter
-    when 'all' then lambdas
+    if LAMBDA_RUNTIMES.include? filter
+      lambdas.select { |l| l.runtime.start_with? filter }
+    else
+      case filter
+      when 'all' then lambdas
+      end
     end
   end
 end

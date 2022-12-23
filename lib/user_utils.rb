@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'aws-sdk-iam'
+require_relative 'aws_utils'
 require_relative 'iam_user'
 
 # to query AWS IAM users
@@ -23,10 +24,6 @@ class UserUtils < AwsUtils
       end
       all_users
     end
-  end
-
-  def user_by_name(name)
-    users.select { |u| u.name == name }
   end
 
   def show_users_by(filter)
@@ -59,10 +56,10 @@ class UserUtils < AwsUtils
   def user_filter(filter)
     case filter
     when 'All'             then users
-    when 'Service Account' then users.select { |u| u.name.start_with? 'svc_' }
-    when 'No MFA'          then users.select { |u| u.mfa == false }
-    when 'Stale key'
-      users.select { |u| u.key_age.to_i > config['stale_key_days'] || u.key_age == 'no keys!' }
+    when 'Service'         then users.select { |u| u.name.start_with? 'svc_' }
+    when 'No_MFA'          then users.select { |u| u.mfa == false }
+    when 'Stale_key'
+      users.select { |u| u.key_age.to_i > CONFIG['stale_key_days'] || u.key_age == 'no keys!' }
     end
   end
 

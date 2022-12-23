@@ -1,0 +1,23 @@
+---
+- !ruby/object:Lambda
+  arn: arn:aws:lambda:us-west-2:777777777777:function:expire_ec2_snapshots
+  name: expire_ec2_snapshots
+  description: expire ec2 snapshots daily
+  runtime: python3.8
+  role: arn:aws:iam::777777777777:role/ebs-backup-worker
+  env_vars:
+    SLACK_CHANNEL: "#notifications"
+    SLACK_HOOK_URL: https://hooks.slack.com/services/BBBBBBBB/AAAAAAAA/777777777777
+  region: us-east-1
+  modified: 2020-07-04 20:53:26.193000000 +00:00
+- !ruby/object:Lambda
+  arn: arn:aws:lambda:us-west-2:888888888888:function:snapshot_ec2s
+  name: groovy_tunes
+  description: run some cool script with ruby
+  runtime: ruby2.7
+  role: arn:aws:iam::888888888888:role/ebs-stackup-worker
+  env_vars:
+    SLACK_CHANNEL: "#notifications"
+    SLACK_HOOK_URL: https://hooks.slack.com/services/DDDDDDDD/CCCCCCCC/888888888888
+  region: us-west-2
+  modified: 2020-12-15 22:17:02.329000000 +00:00

@@ -12,7 +12,7 @@ desc snap_desc
 task snapshots: :snaps
 
 namespace :snaps do
-  %w[encrypted unencrypted].each do |filter|
+  %w[encrypted unencrypted standard archived].each do |filter|
     desc "Show all #{filter} snapshots"
     task filter.to_sym do
       check_cache

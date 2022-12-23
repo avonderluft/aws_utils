@@ -9,41 +9,40 @@ RSpec.shared_examples 'a Ec2Utils object' do
   describe 'Ec2Instances' do
     describe '#ec2s' do
       it 'has ec2s' do
-        expect(ec2u.ec2s).to be_an Array
-        expect(ec2u.ec2s).to_not be_empty
+        expect(ec2utils.ec2s).to be_an Array
+        expect(ec2utils.ec2s).to_not be_empty
       end
     end
   end
 
   describe '#show_by_id_or_name' do
-    it { expect { ec2u.show_by_id_or_name(ec2_id) }.to output(/#{ec2_id}/).to_stdout }
+    it { expect { ec2utils.show_by_id_or_name(ec2_id) }.to output(/#{ec2_id}/).to_stdout }
     %w[id instance_type].each do |text|
-      it { expect { ec2u.show_by_id_or_name(ec2_id) }.to output(/#{text}/).to_stdout }
+      it { expect { ec2utils.show_by_id_or_name(ec2_id) }.to output(/#{text}/).to_stdout }
     end
   end
 
   describe '#show_tags' do
     %w[Owner Team].each do |tag|
-      it { expect { ec2u.show_tags }.to output(/#{tag}/).to_stdout }
+      it { expect { ec2utils.show_tags }.to output(/#{tag}/).to_stdout }
     end
   end
 
   describe '#show_by_tag' do
     %w[Owner Team].each do |tag|
-      it { expect { ec2u.show_by_tag(tag) }.to output(/#{ec2_id}/).to_stdout }
+      it { expect { ec2utils.show_by_tag(tag) }.to output(/#{ec2_id}/).to_stdout }
     end
   end
 end
 
 RSpec.describe Ec2Utils do
+  subject(:ec2utils) { described_class.new }
+
   context 'with caching' do
-    subject(:ec2u) { described_class.new }
     it_behaves_like 'a Ec2Utils object'
   end
 
   context 'without caching' do
-    subject(:ec2u) { described_class.new }
-
     before(:each) do
       allow(AwsUtils).to receive(:cached?).with('ec2s').and_return(false)
       ec2s_array = [Ec2Instance.new(aws_ec2, 'us-west-2')]

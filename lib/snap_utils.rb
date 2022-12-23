@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'aws-sdk-ec2'
+require_relative 'ec2_utils'
 require_relative 'ec2/ec2_snapshot'
 
 # collection of all EC2 snapshots
@@ -16,6 +17,7 @@ class SnapUtils < Ec2Utils
           ec2 = Aws::EC2::Resource.new(region: region_name)
           snapshots =  ec2.client.describe_snapshots owner_ids: [owner_id]
           snapshots[0].each do |snap|
+            puts snap.to_yaml
             snapshot = Ec2Snapshot.new(snap, region_name)
             all_snapshots << snapshot
           end
@@ -39,6 +41,8 @@ class SnapUtils < Ec2Utils
     when 'all'         then snapshots
     when 'encrypted'   then snapshots.select { |s| s.encrypted == true }
     when 'unencrypted' then snapshots.select { |s| s.encrypted == false }
+    when 'standard'    then snapshots.select { |s| s.storage_tier == 'standard' }
+    when 'archived'    then snapshots.select { |s| s.storage_tier == 'archive' }
     end
   end
 end

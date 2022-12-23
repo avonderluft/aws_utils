@@ -29,6 +29,12 @@ namespace :keys do
     KmsUtils.new.show_by_description(args[:description])
   end
 
+  desc 'Show all KMS keys in given region'
+  task :region, :region do |_t, args|
+    check_cache
+    KmsUtils.new.show_by_region(args[:region])
+  end
+
   desc 'Run audit for KMS keys with their status'
   task :audit do
     puts `rake cache:clear`

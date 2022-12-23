@@ -1,0 +1,36 @@
+---
+- !ruby/object:IamUser
+  id: IAMAUSERID4USER1
+  name: user1
+  mfa: true
+  arn: arn:aws:iam::777777777777:user/user1
+  created: '2015-04-09'
+  last_login: 2022-12-07 18:08:04.000000000 Z
+  user_groups: &2
+  - billing
+  - admins
+  groups: *2
+  policies: []
+  keys:
+  - :id: IAMAKUSERKEY4USER1
+    :status: Active
+    :age_days: '1044'
+  tags:
+    email: admin@example.com
+  svc_acct: false
+- !ruby/object:IamUser
+  id: IAMAUSERID4USER2
+  name: svc_user2
+  mfa: false
+  arn: arn:aws:iam::888888888888:user/user2
+  created: '2020-05-31'
+  last_login: 2020-05-31 17:50:17.000000000 Z
+  user_groups: &4
+  - developers
+  - admins
+  groups: *4
+  policies: []
+  keys: []
+  tags:
+    email: dev@example.com
+  svc_acct: false

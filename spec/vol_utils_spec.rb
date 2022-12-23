@@ -5,20 +5,21 @@ aws_vol = YAML.unsafe_load(File.read("#{fixtures_dir}/aws_ec2_volume.yaml"))
 vol_id = 'vol-abcdef1234567890'
 ec2_id = 'i-00000000000001'
 
-RSpec.shared_examples 'a VolUtils object' do
+RSpec.shared_examples 'a volutils object' do
   describe '#volumes' do
     it 'has volumes' do
-      expect(volu.volumes).to be_an Array
-      expect(volu.volumes).to_not be_empty
+      expect(volutils.volumes).to be_an Array
+      expect(volutils.volumes).to_not be_empty
+      expect(volutils.volumes).to all be_an(Ec2Volume)
     end
   end
 
   describe '#show_by_id' do
     %w[id kms_key].each do |text|
-      it { expect { volu.show_by_id(vol_id) }.to output(/#{text}/).to_stdout }
+      it { expect { volutils.show_by_id(vol_id) }.to output(/#{text}/).to_stdout }
     end
     [vol_id, ec2_id].each do |id|
-      it { expect { volu.show_by_id(vol_id) }.to output(/#{id}/).to_stdout }
+      it { expect { volutils.show_by_id(vol_id) }.to output(/#{id}/).to_stdout }
     end
   end
 
@@ -26,17 +27,17 @@ RSpec.shared_examples 'a VolUtils object' do
     %w[all encrypted].each do |con|
       context con do
         %w[ID Attachments].each do |text|
-          it { expect { volu.show_by_regions(con) }.to output(/#{text}/).to_stdout }
-          it { expect { volu.show_by_regions(con) }.to output(/#{vol_id}/).to_stdout }
+          it { expect { volutils.show_by_regions(con) }.to output(/#{text}/).to_stdout }
+          it { expect { volutils.show_by_regions(con) }.to output(/#{vol_id}/).to_stdout }
         end
       end
     end
     %w[unused unencrypted].each do |con|
       context con do
-        it { expect { volu.show_by_regions(con) }.to output(/#{con} Ec2Volumes:/).to_stdout }
+        it { expect { volutils.show_by_regions(con) }.to output(/#{con} Ec2Volumes:/).to_stdout }
         %w[ID Attachments].each do |text|
-          it { expect { volu.show_by_regions(con) }.to_not output(/#{text}/).to_stdout }
-          it { expect { volu.show_by_regions(con) }.to_not output(/#{vol_id}/).to_stdout }
+          it { expect { volutils.show_by_regions(con) }.to_not output(/#{text}/).to_stdout }
+          it { expect { volutils.show_by_regions(con) }.to_not output(/#{vol_id}/).to_stdout }
         end
       end
     end
@@ -44,13 +45,13 @@ RSpec.shared_examples 'a VolUtils object' do
 end
 
 RSpec.describe VolUtils do
+  subject(:volutils) { described_class.new }
+
   context 'with caching' do
-    subject(:volu) { described_class.new }
-    it_behaves_like 'a VolUtils object'
+    it_behaves_like 'a volutils object'
   end
 
   context 'without caching' do
-    subject(:volu) { described_class.new }
     regions = YAML.unsafe_load(File.read("#{fixtures_dir}/regions_cache.yaml"))
 
     before(:each) do
@@ -60,7 +61,7 @@ RSpec.describe VolUtils do
       allow_any_instance_of(VolUtils).to receive(:volumes).and_return(vols_array)
     end
 
-    it_behaves_like 'a VolUtils object'
+    it_behaves_like 'a volutils object'
   end
 end
 

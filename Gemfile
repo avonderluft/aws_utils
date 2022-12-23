@@ -25,4 +25,5 @@ group :development do
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
   gem 'simplecov'
+  gem 'warning'
 end

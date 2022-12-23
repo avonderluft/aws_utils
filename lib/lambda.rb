@@ -2,11 +2,11 @@
 
 # to contain data from an AWS Lambda
 class Lambda
-  attr_reader :arn, :name, :description, :runtime, :role, :env_vars, :region, :modified
+  attr_reader :arn, :region, :name, :description, :runtime, :role, :env_vars, :modified
 
   def initialize(lamb, region_name)
-    p lamb
     @arn = lamb.function_arn
+    @region = region_name
     @name = lamb.function_name
     @description = lamb.description
     @runtime = lamb.runtime
