@@ -10,4 +10,4 @@ puts "Checking for ruby version #{ruby_version}..."
 system "rbenv install #{ruby_version}" unless system "rbenv local #{ruby_version}"
 system "rbenv local #{ruby_version}"
 system 'bundle install'
-puts 'aws_rakes setup is complete!'
+puts 'aws_utils setup is complete!'

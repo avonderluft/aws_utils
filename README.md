@@ -13,7 +13,7 @@ The rake tasks are non-destructive by design, i.e. informational only.  Actually
 
 ## Setup
 
-This project has been written, tested, and run exclusively with Ruby 3 on MacOS, and the Prerequisites below follow accordingly.  **AWS Rakes** should run on other *nix OSes, and on Windows too, with some adjustments.
+This project has been written, tested, and run exclusively with Ruby 3 on MacOS, and the Prerequisites below follow accordingly.  **AWS Utils** should run on other *nix OSes, and on Windows too, with some adjustments.
 
 * clone the repo into your desired directory `git clone git@github.com:avonderluft/aws_utils.git`
 * `cd aws_utils`
