@@ -52,11 +52,8 @@ RSpec.describe VolUtils do
   end
 
   context 'without caching' do
-    regions = YAML.unsafe_load(File.read("#{fixtures_dir}/regions_cache.yaml"))
-
-    before(:each) do
+    before do
       allow(AwsUtils).to receive(:cached?).with('volumes').and_return(false)
-      allow_any_instance_of(Ec2Volume).to receive(:regions).and_return(regions)
       vols_array = [Ec2Volume.new(aws_vol, 'us-west-2')]
       allow_any_instance_of(VolUtils).to receive(:volumes).and_return(vols_array)
     end
@@ -66,32 +63,30 @@ RSpec.describe VolUtils do
 end
 
 RSpec.describe Ec2Volume do
-  subject(:vol) { described_class.new(aws_vol, 'us-west-2') }
+  subject(:volume) { described_class.new(aws_vol, 'us-west-2') }
 
   describe '#initialize' do
-    it "has instance variable 'tags' populated" do
-      expect(vol.tags).to be_a Hash
-      expect(vol.tags).to_not be_empty
-    end
-    it "has instance variable 'attachments' populated" do
-      expect(vol.attachments).to be_an Array
-      expect(vol.attachments.first).to be_a Hash
-      expect(vol.attachments.first[:ec2_id]).to eq ec2_id
+    it "has the attributes of an instance of #{described_class}" do
+      expect(volume.tags).to be_a Hash
+      expect(volume.tags).to_not be_empty
+      expect(volume.attachments).to be_an Array
+      expect(volume.attachments.first).to be_a Hash
+      expect(volume.attachments.first[:ec2_id]).to eq ec2_id
     end
   end
 
   describe '#status_color' do
     { 'in-use': 'light_green', available: 'yellow' }.each_pair do |state, color|
       context "when #{state}" do
-        before { vol.instance_variable_set(:@state, state.to_s) }
-        it { expect(vol.status_color).to eq color }
+        before { volume.instance_variable_set(:@state, state.to_s) }
+        it { expect(volume.status_color).to eq color }
       end
     end
   end
 
   describe '#output_summary' do
     %w[ID Region_AZ Tags].each do |label|
-      it { expect { vol.output_summary }.to output(/#{label}/).to_stdout }
+      it { expect { volume.output_summary }.to output(/#{label}/).to_stdout }
     end
   end
 end

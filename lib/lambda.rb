@@ -12,7 +12,6 @@ class Lambda
     @runtime = lamb.runtime
     @role = lamb.role
     @env_vars = lamb.environment ? lamb.environment.variables : {}
-    @region = region_name
     @modified = lamb.last_modified
   end
 
@@ -24,7 +23,14 @@ class Lambda
   private
 
   def status_color
-    'light_green'
+    # %w[dotnet go java node python ruby]
+    case runtime[0, 2]
+    when 'do' then 'light_blue'
+    when 'go' then 'light_cyan'
+    when 'ja' then 'cyan'
+    when 'py' then 'yellow'
+    when 'ru' then 'light_red'
+    end
   end
 
   def summary

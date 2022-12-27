@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 require 'user_utils'
+aws_user = YAML.unsafe_load(File.read("#{fixtures_dir}/aws_user.yaml"))
+user_groups = %w[admin billing corporate]
+user_tags = { email: 'me@example.com', dept: 'devops', level: 'senior' }
 
 RSpec.shared_examples 'a UserUtils object' do
   describe '#users' do
@@ -12,7 +15,7 @@ RSpec.shared_examples 'a UserUtils object' do
   end
 
   describe '#show_users_by' do
-    %w[All Service No_MFA Stale_key].each do |filter|
+    %w[All No_MFA Stale_key].each do |filter|
       context "filter for #{filter}" do
         it { expect { userutils.show_users_by(filter) }.to output(/#{filter}/).to_stdout }
         it { expect { userutils.show_users_by(filter) }.to output(/IAMAUSERID4USER/).to_stdout }
@@ -44,7 +47,19 @@ RSpec.describe UserUtils do
   end
 
   context 'without caching' do
-    pending 'need to set up fixtures and before block'
+    before do
+      allow(AwsUtils).to receive(:cached?).with('users').and_return(false)
+      iam_client = double('iam_client')
+      allow_any_instance_of(IamUser).to receive(:mfa_enabled?).with(iam_client) { false }
+      allow_any_instance_of(IamUser).to receive(:user_groups).with(iam_client) { user_groups }
+      allow_any_instance_of(IamUser).to receive(:user_policies).with(iam_client) { [] }
+      allow_any_instance_of(IamUser).to receive(:user_access_keys).with(iam_client) {
+        [{ id: 'AAABBBCCCDDDEEEFFF', status: 'Active', age_days: '1044' }]
+      }
+      allow_any_instance_of(IamUser).to receive(:user_tags).with(iam_client) { user_tags }
+      allow_any_instance_of(UserUtils).to receive(:users) { [IamUser.new(aws_user, iam_client)] }
+    end
+
     it_behaves_like 'a UserUtils object'
   end
 end

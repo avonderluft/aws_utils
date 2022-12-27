@@ -1,0 +1,8 @@
+--- !ruby/struct:Aws::S3::Types::GetBucketEncryptionOutput
+server_side_encryption_configuration: !ruby/struct:Aws::S3::Types::ServerSideEncryptionConfiguration
+  rules: !ruby/array:Aws::Xml::DefaultList
+  - !ruby/struct:Aws::S3::Types::ServerSideEncryptionRule
+    apply_server_side_encryption_by_default: !ruby/struct:Aws::S3::Types::ServerSideEncryptionByDefault
+      sse_algorithm: AES256
+      kms_master_key_id:
+    bucket_key_enabled: false

@@ -1,0 +1,9 @@
+--- !ruby/struct:Aws::IAM::Types::User
+path: "/"
+user_name: test_user
+user_id: IAMAUSERID4USER1
+arn: arn:aws:iam::776121379736:user/test_user
+create_date: 2015-04-09 18:18:33.000000000 Z
+password_last_used: 2022-12-07 18:08:04.000000000 Z
+permissions_boundary:
+tags: !ruby/array:Aws::Xml::DefaultList []

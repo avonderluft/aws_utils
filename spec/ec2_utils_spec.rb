@@ -43,7 +43,7 @@ RSpec.describe Ec2Utils do
   end
 
   context 'without caching' do
-    before(:each) do
+    before do
       allow(AwsUtils).to receive(:cached?).with('ec2s').and_return(false)
       ec2s_array = [Ec2Instance.new(aws_ec2, 'us-west-2')]
       allow_any_instance_of(Ec2Utils).to receive(:ec2s).and_return(ec2s_array)
@@ -58,7 +58,12 @@ RSpec.describe Ec2Instance do
   subject(:ec2) { described_class.new(aws_ec2, 'us-west-2') }
 
   describe '#initialize' do
-    it "has instance variable 'tags' populated" do
+    it "has the attributes of an instance of #{described_class}" do
+      expect(ec2.id).to eq(ec2_id)
+      expect(ec2.sec_groups).to be_an(Array)
+      expect(ec2.sec_groups).to_not be_empty
+      expect(ec2.block_devices).to be_an(Array)
+      expect(ec2.block_devices).to_not be_empty
       expect(ec2.tags).to be_a Hash
       expect(ec2.tags).to_not be_empty
     end

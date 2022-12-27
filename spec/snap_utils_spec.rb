@@ -32,7 +32,7 @@ RSpec.describe SnapUtils do
   end
 
   context 'without caching' do
-    before(:each) do
+    before do
       allow(AwsUtils).to receive(:cached?).with('snapshots').and_return(false)
       snaps_array = [Ec2Snapshot.new(aws_snap, 'us-west-2')]
       allow_any_instance_of(SnapUtils).to receive(:snapshots).and_return(snaps_array)
@@ -45,7 +45,7 @@ RSpec.describe Ec2Snapshot do
   subject(:ec2snap) { described_class.new(aws_snap, 'us-west-2') }
 
   describe '#initialize' do
-    it 'has the attributes of an Ec2Snapshot object' do
+    it "has the attributes of an instance of #{described_class}" do
       expect(ec2snap).to be_an(Ec2Snapshot)
       expect(ec2snap.id).to eq(snap_id)
       expect(ec2snap.volume_size).to be_an(Integer)

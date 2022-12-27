@@ -13,8 +13,8 @@ class IamUser
     @created = user.create_date.to_s.split.first
     @last_login = user.password_last_used
     @groups = user_groups(iam_client)
-    @policies = iam_client.list_user_policies(user_name: name).policy_names
-    @keys = access_keys(iam_client)
+    @policies = user_policies(iam_client)
+    @keys = user_access_keys(iam_client)
     @tags = user_tags(iam_client)
     @svc_acct = user.user_name.start_with? 'svc_'
   end
@@ -42,8 +42,8 @@ class IamUser
   private
 
   def summary
-    { Name: name, ID: id, Created: created, Groups: groups, MFA_enabled?: mfa, Keys: keys,
-      LastLoginDays: last_login_days, Tags: tags }
+    { Name: name, ID: id, Created: created, Groups: groups, Policies: policies,
+      MFA_enabled?: mfa, Keys: keys, LastLoginDays: last_login_days, Tags: tags }
   end
 
   def mfa_enabled?(iam_client)
@@ -68,6 +68,10 @@ class IamUser
     end
   end
 
+  def user_policies(iam_client)
+    iam_client.list_user_policies(user_name: name).policy_names
+  end
+
   def user_tags(iam_client)
     tags = {}
     iam_client.list_user_tags(user_name: name)[0].each do |tag|
@@ -76,7 +80,7 @@ class IamUser
     tags
   end
 
-  def access_keys(iam_client)
+  def user_access_keys(iam_client)
     keys = []
     iam_client.list_access_keys(user_name: name).access_key_metadata.map.each do |key|
       age_in_days = ((Time.now - key.create_date) / 86_400).to_i

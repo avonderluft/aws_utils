@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 's3_utils'
+aws_s3bucket = YAML.unsafe_load(File.read("#{fixtures_dir}/aws_s3_bucket.yaml"))
+aws_s3bucket_encryption = YAML.unsafe_load(File.read("#{fixtures_dir}/aws_s3_bucket_encryption.yaml"))
 
 RSpec.shared_examples 'an S3Utils object' do
   describe '#s3buckets' do
@@ -26,7 +28,17 @@ RSpec.describe S3Utils do
   end
 
   context 'without caching' do
-    pending 'need to set up fixtures and before block'
+    before do
+      allow(AwsUtils).to receive(:cached?).with('s3buckets').and_return(false)
+      s3_client = double('s3_client')
+      allow(s3_client).to receive(:get_bucket_encryption).and_return(aws_s3bucket_encryption)
+      allow_any_instance_of(S3Bucket).to receive(:bucket_logging).with(s3_client).and_return('none')
+      allow_any_instance_of(S3Bucket).to receive(:bucket_lifecycle_rules).with(s3_client).and_return([])
+      allow_any_instance_of(S3Bucket).to receive(:bucket_tagging).and_return([])
+      buckets_array = [S3Bucket.new(aws_s3bucket, 'us-west-2', s3_client)]
+      allow_any_instance_of(S3Utils).to receive(:s3buckets).and_return(buckets_array)
+    end
+
     it_behaves_like 'an S3Utils object'
   end
 end

@@ -1,0 +1,42 @@
+--- !ruby/struct:Aws::Lambda::Types::FunctionConfiguration
+function_name: expire_ec2_snapshots
+function_arn: arn:aws:lambda:us-west-2:777777777777:function:expire_ec2_snapshots
+runtime: python3.8
+role: arn:aws:iam::777777777777:role/ebs-backup-worker
+handler: lambda_function.lambda_handler
+code_size: 1361
+description: expire ec2 snapshots daily
+timeout: 3
+memory_size: 128
+last_modified: 2020-07-04 20:53:26.193000000 +00:00
+code_sha_256: pQOL0js777777777777777777777c7OW+4esBqM=
+version: "$LATEST"
+vpc_config: !ruby/struct:Aws::Lambda::Types::VpcConfigResponse
+  subnet_ids: []
+  security_group_ids: []
+  vpc_id: ''
+dead_letter_config:
+environment: !ruby/struct:Aws::Lambda::Types::EnvironmentResponse
+  variables:
+    SLACK_CHANNEL: "#notifications"
+    SLACK_HOOK_URL: https://hooks.slack.com/services/DDDDDDDD/CCCCCCCC/888888888888
+  error:
+kms_key_arn:
+tracing_config: !ruby/struct:Aws::Lambda::Types::TracingConfigResponse
+  mode: PassThrough
+master_arn:
+revision_id: 5180E05C-D9DB-4AC9-9B0A-8F1245948243
+layers:
+state:
+state_reason:
+state_reason_code:
+last_update_status:
+last_update_status_reason:
+last_update_status_reason_code:
+file_system_configs:
+package_type: Zip
+image_config_response:
+signing_profile_version_arn:
+signing_job_arn:
+architectures:
+- x86_64
