@@ -42,7 +42,9 @@ class Ec2Volume
       attach_array << {
         ec2_id: attachment.instance_id,
         ec2_name: ec2s_by_id(attachment.instance_id).first.name,
-        ec2_type: ec2s_by_id(attachment.instance_id).first.instance_type
+        ec2_type: ec2s_by_id(attachment.instance_id).first.instance_type,
+        ec2_device: attachment.device,
+        delete_on_termination?: attachment.delete_on_termination
       }
     end
     attach_array
@@ -60,7 +62,7 @@ class Ec2Volume
   end
 
   def summary
-    { ID: id, Region_AZ: "#{region} - #{az}", Size: size,
+    { ID: id, Region_AZ: "#{region} - #{az}", Created: created, Size: size,
       Encrypted: encrypted, Type: type, State: state, Attachments: attachments, Tags: tags }
   end
 end

@@ -67,6 +67,8 @@
   - :ec2_id: i-00000000000001
     :ec2_name: test_name
     :ec2_type: t3a.large
+    :ec2_device: /dev/xvda
+    :delete_on_termination: true
   tags:
     backup: 'true'
     apps: virtualmin
