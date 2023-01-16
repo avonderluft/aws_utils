@@ -136,8 +136,18 @@ class AwsUtils
     `#{cli} configure get region --profile default`.chomp
   end
 
+  def expired_token_msg(e)
+    puts DIVIDER
+    puts 'Your session is expired. Please reauthenticate'.warning
+    puts DIVIDER
+    puts e.message.error
+    raise e
+  end
+
   def caller_hash
     @caller_hash ||= JSON.parse(`aws sts get-caller-identity`)
+  rescue JSON::ParserError => e
+    expired_token_msg(e)
   end
 
   def check_region
@@ -148,8 +158,7 @@ class AwsUtils
     @default_region = 'us-east-1'
     puts "- Changed default region to 'us-east-1'".status
   rescue Aws::EC2::Errors::RequestExpired => e
-    puts e.message.error + ' - Please reauthenticate'.warning
-    raise e
+    expired_token_msg(e)
   end
 
   def check_account_owner
