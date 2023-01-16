@@ -35,10 +35,17 @@ namespace :audit do
   end
 end
 
-desc 'Show all available AWS EC2 regions'
+desc 'Show filtered available AWS regions'
 task :regions do
   FileUtils.rm_rf "#{CACHE_PATH}/regions_cache.yaml" if ENV['cache'] == 'no'
   Ec2Utils.new.show_regions
+end
+
+namespace :regions do
+  desc 'Show all available AWS regions'
+  task :all do
+    Ec2Utils.new.show_regions(true)
+  end
 end
 
 desc 'Set default region to arg: rake region[new_region]'

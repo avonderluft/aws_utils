@@ -127,6 +127,7 @@ The 'lambda' directory contains a few example scripts
 
 * code for more AWS services, e.g. ECS, and expanding EKS
 * write tests for all the services covered
+* write test for rake tasks
 
 ## Contributing
 
