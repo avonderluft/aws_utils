@@ -18,7 +18,7 @@ module Ec2Regions
             filtered_regions.concat(regions.select { |r| r[:region_name].include? rf })
           end
         end
-        AwsUtils.write_cache('regions', all_regions)
+        AwsUtils.write_cache('regions', filtered_regions)
       end
       filtered_regions
     end
