@@ -17,7 +17,6 @@ class SnapUtils < Ec2Utils
           ec2 = Aws::EC2::Resource.new(region: region_name)
           snapshots =  ec2.client.describe_snapshots owner_ids: [owner_id]
           snapshots[0].each do |snap|
-            puts snap.to_yaml
             snapshot = Ec2Snapshot.new(snap, region_name)
             all_snapshots << snapshot
           end
