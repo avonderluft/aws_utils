@@ -90,7 +90,8 @@ class Ec2Instance
   end
 
   def summary
+    state_string = uptime.empty? ?  state : "#{state} - up #{uptime}"
     { ID_Name: "#{id} - #{name}", Region_AZ: "#{region} (#{az})", Type: instance_type,
-      State: "#{state} - up #{uptime}", Block_Devices: block_devices, Tags: tags }
+      State: state_string, Block_Devices: block_devices, Tags: tags }
   end
 end
