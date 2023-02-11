@@ -14,6 +14,8 @@ class Ec2Utils < AwsUtils
     found_instances = ec2s.select { |i| i.id.include? id_or_name } if found_instances.empty?
     found_instances.each { |ec2| output_object(ec2, ec2.status_color) }
     puts LINE
+    puts EC2_LEGEND
+    puts LINE
   end
 
   def show_tags
@@ -59,7 +61,6 @@ class Ec2Utils < AwsUtils
   def ec2_detail_instructions
     @ec2_detail_instructions ||=
       "For detail on an instance: specify ec2 id or name e.g. 'rake ec2[#{ec2s.last.id}]'\n".direct +
-      "For detail on a block device: specify volume_id e.g. 'rake vol[volume_id]'\n".direct         +
       DIVIDER
   end
 
