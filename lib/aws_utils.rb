@@ -7,6 +7,7 @@ require 'awesome_print'
 require 'colorize'
 require 'diffy'
 require 'fileutils'
+require 'table_print'
 require 'yaml'
 require_relative 'audit_common'
 require_relative 'constants'
@@ -91,6 +92,18 @@ class AwsUtils
     system "aws configure set region #{region}"
     puts "- default_region set to '#{region}'".status
     puts "Run 'rake regions' to see all available regions.".info
+  end
+
+  def table_print(objects, info_hash)
+    puts DIVIDER
+    if info_hash[:class]
+      puts "Describing #{info_hash[:class]}: #{objects.count} found.".info
+    end
+    puts DIVIDER
+    options = {}
+    tp objects, options
+    puts DIVIDER
+    puts info_hash[:msg] if info_hash[:msg]
   end
 
   def output_object(object, status_color = 'light_green')

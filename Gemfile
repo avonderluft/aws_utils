@@ -15,6 +15,7 @@ gem 'aws-sdk-s3'
 gem 'colorize'
 gem 'diffy'
 gem 'rake'
+gem 'table_print'
 
 group :development do
   gem 'coderay'

@@ -35,6 +35,14 @@ namespace :ec2s do
     Ec2Utils.new.show_by_tag('aws:eks:cluster-name')
   end
 
+  desc 'Show tabularized list of all EC2 instances'
+  task :table do
+    check_cache
+    ec2u = Ec2Utils.new
+    info = { class: 'EC2 instances', msg: ec2u.ec2_detail_instructions }
+    ec2u.table_print(ec2u.ec2s_table_array, info)
+  end
+
   desc 'Show tags for all EC2 instances'
   task :tags do
     check_cache

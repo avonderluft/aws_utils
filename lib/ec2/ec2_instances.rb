@@ -25,6 +25,18 @@ module Ec2Instances
     end
   end
 
+  def ec2s_table_array
+    @ec2s_table_array ||= begin
+      inst = Struct.new(:instance, :name, :state, :ami, :platform, :type, :ip_address)
+      instances = []
+      ec2s.each do |i|
+        instances << inst.new(i.id, i.name, i.state,
+                              i.ami, i.platform, i.instance_type, i.private_ip)
+      end
+      instances
+    end
+  end
+
   def ec2_used_regions
     ec2s.map(&:region).uniq.sort
   end
