@@ -136,18 +136,11 @@ class AwsUtils
     `#{cli} configure get region --profile default`.chomp
   end
 
-  def expired_token_msg(e)
-    puts DIVIDER
-    puts 'Your session is expired. Please reauthenticate'.warning
-    puts DIVIDER
-    puts e.message.error
-    raise e
-  end
-
   def caller_hash
     @caller_hash ||= JSON.parse(`aws sts get-caller-identity`)
   rescue JSON::ParserError => e
-    expired_token_msg(e)
+    msg = 'Could not retrieve caller identity. May be network issues'
+    die_gracefully(msg, e)
   end
 
   def check_region
@@ -158,7 +151,11 @@ class AwsUtils
     @default_region = 'us-east-1'
     puts "- Changed default region to 'us-east-1'".status
   rescue Aws::EC2::Errors::RequestExpired => e
-    expired_token_msg(e)
+    msg = 'Your token is expired'
+    die_gracefully(msg, e)
+  rescue Seahorse::Client::NetworkingError => e
+    msg = 'Could not connect. May be network issues.'
+    die_gracefully(msg, e)
   end
 
   def check_account_owner
@@ -205,6 +202,15 @@ class AwsUtils
       var_hash[var.to_s.delete('@')] = obj.instance_variable_get(var)
     end
     var_hash
+  end
+
+  def die_gracefully(msg, err)
+    puts DIVIDER
+    puts msg.warning
+    puts DIVIDER
+    puts err.message.error
+    puts DIVIDER
+    raise err
   end
 end
 # rubocop:enable Metrics/ClassLength
