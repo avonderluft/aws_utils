@@ -40,7 +40,9 @@ namespace :ec2s do
     check_cache
     ec2u = Ec2Utils.new
     info = { class: 'EC2 instances', msg: ec2u.ec2_detail_instructions }
-    ec2u.table_print(ec2u.ec2s_table_array, info)
+    options = :instance, { name: { width: 31 } }, { state: { width: 7 } },
+              :ami, { platform: { width: 8 } }, :type, :ip_address
+    ec2u.table_print(ec2u.ec2s_table_array, options, info)
   end
 
   desc 'Show tags for all EC2 instances'

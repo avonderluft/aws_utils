@@ -3,7 +3,7 @@
 # to contain data from an AWS IAM user
 class IamUser
   attr_reader :id, :name, :mfa, :arn, :created, :last_login, :groups, :policies,
-              :keys, :tags, :svc_acct
+              :keys, :active_keys, :key_days_left, :tags, :svc_acct
 
   def initialize(user, iam_client)
     @id = user.user_id
@@ -15,22 +15,17 @@ class IamUser
     @groups = user_groups(iam_client)
     @policies = user_policies(iam_client)
     @keys = user_access_keys(iam_client)
+    @active_keys = @keys.keep_if { |k| k[:status] == 'Active' }
+    @key_days_left = days_till_key_expiry
     @tags = user_tags(iam_client)
     @svc_acct = user.user_name.start_with? 'svc_'
   end
 
   def key_age
-    return 'no keys!' if keys.empty?
-
-    age = 0
     @key_age ||= begin
-      keys.each do |key|
-        next unless key[:status] == 'Active'
+      return 'no keys!' if active_keys.empty?
 
-        key_age = key[:age_days]
-        age = key_age if key_age.to_i > age.to_i
-      end
-      age
+      active_keys.first[:age_days]
     end
   end
 
@@ -43,7 +38,8 @@ class IamUser
 
   def summary
     { Name: name, ID: id, Created: created, Groups: groups, Policies: policies,
-      MFA_enabled?: mfa, Keys: keys, LastLoginDays: last_login_days, Tags: tags }
+      MFA_enabled?: mfa, Keys: keys, Key_Days_Left: key_days_left,
+      LastLoginDays: last_login_days, Tags: tags }
   end
 
   def mfa_enabled?(iam_client)
@@ -86,7 +82,15 @@ class IamUser
       age_in_days = ((Time.now - key.create_date) / 86_400).to_i
       keys << { id: key.access_key_id, status: key.status, age_days: age_in_days.to_s }
     end
-    keys
+    return keys if keys.empty?
+
+    keys.sort_by { |k| k[:age_days].to_i }
+  end
+
+  def days_till_key_expiry
+    return 'N/A' if active_keys.empty?
+
+    "#{CONFIG['stale_key_days'].to_i - key_age.to_i}"
   end
 
   def status_color

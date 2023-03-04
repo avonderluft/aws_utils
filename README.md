@@ -26,7 +26,7 @@ This project has been written, tested, and run exclusively with Ruby 3 on MacOS,
 * Homebrew, if you are on MacOs.  See https://brew.sh/
 * awscli installed and configured, e.g. `brew install awscli`
 * AWS configuration set up in ~/.aws/config with at least a 'default' profile
-* AWS programatic access via key and secret, normally saved in ~/.aws/credentials
+* AWS programatic access via key and secret, normally saved in ~/.aws/credentials, or in ENV variables
 * IAM permissions for the specific services you wish to query
 * ruby installed, with gems rake and bundler (these are pre-installed with current ruby versions)
 * Optional: a ruby version manager, e.g. rbenv or chruby (RVM is not recommended)

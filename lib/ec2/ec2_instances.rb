@@ -19,6 +19,7 @@ module Ec2Instances
         rescue Aws::EC2::Errors::UnauthorizedOperation
           next
         end
+        all_ec2s.sort_by! { |i| i.name }
         AwsUtils.write_cache('ec2s', all_ec2s)
       end
       all_ec2s

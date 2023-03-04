@@ -19,7 +19,7 @@ class AwsUtils
   include Ec2Regions
 
   attr_reader :cli, :default_region, :owner_id, :user_id, :user_name
-  attr_accessor :ec2_client
+  attr_accessor :ec2_client, :quiet
 
   def self.cache_file_path(cache_name)
     "#{CACHE_PATH}/#{cache_name}_cache.yaml"
@@ -37,7 +37,7 @@ class AwsUtils
                      end
     if mins_to_expire.negative?
       FileUtils.rm_f filepath
-      puts "- expired '#{cache_name}' cache removed.".status
+      puts "- expired '#{cache_name}' cache removed.".status unless ENV['quiet'] == 'yes'
       false
     else
       if output
@@ -60,12 +60,12 @@ class AwsUtils
   def self.clear_cache
     filenames = Dir.glob("#{CACHE_PATH}/*.yaml")
     filenames.delete_if { |fn| fn.include? 'regions_cache' } # keep regions cache file
-    if filenames.empty?
-      puts '- cache is already empty.'.status
-    else
-      FileUtils.rm_rf filenames
-      filenames.each { |cache_file| puts "- #{cache_file} removed.".status }
-    end
+    return unless filenames.any?
+
+    FileUtils.rm_rf filenames
+    return if ENV['quiet'] == 'yes'
+
+    filenames.each { |cache_file| puts "- #{cache_file} removed.".status }
   end
 
   def initialize
@@ -94,13 +94,10 @@ class AwsUtils
     puts "Run 'rake regions' to see all available regions.".info
   end
 
-  def table_print(objects, info_hash)
+  def table_print(objects, options, info_hash)
     puts DIVIDER
-    if info_hash[:class]
-      puts "Describing #{info_hash[:class]}: #{objects.count} found.".info
-    end
+    puts "Describing #{info_hash[:class]}: #{objects.count} found.".info if info_hash[:class]
     puts DIVIDER
-    options = {}
     tp objects, options
     puts DIVIDER
     puts info_hash[:msg] if info_hash[:msg]

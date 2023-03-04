@@ -57,4 +57,13 @@ namespace :users do
     puts `rake cache:clear`
     UserUtils.new.audit
   end
+  desc 'Show tabularized list of users with key expirations'
+  task :table do
+    check_cache
+    uu = UserUtils.new
+    info = { class: 'IAM Users with active keys', msg: uu.user_detail_instructions }
+    options = {}
+    uu.table_print(uu.users_keys_expiry_table_array, options, info)
+  end
+
 end

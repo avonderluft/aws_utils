@@ -20,9 +20,22 @@ class UserUtils < AwsUtils
           user = IamUser.new(iam_user, iam_client)
           all_users << user
         end
+        all_users.sort_by! { |u| u.name }
         AwsUtils.write_cache('users', all_users)
       end
       all_users
+    end
+  end
+
+  def users_keys_expiry_table_array
+    @users_keys_expiry_table_array ||= begin
+      user_with_keys = Struct.new(:id, :name, :active_key, :key_age, :days_left)
+      users_filtered = users.keep_if { |u| u.active_keys.any? }
+      users_with_keys = []
+      users_filtered.each do |u|
+        users_with_keys << user_with_keys.new(u.id, u.name, u.active_keys.first[:id], u.key_age, u.key_days_left)
+      end
+      users_with_keys.sort_by { |u| u.days_left.to_i }
     end
   end
 
@@ -34,6 +47,12 @@ class UserUtils < AwsUtils
   def show_users_by_key_value(key, value)
     users_filtered = user_key_value_filter(key, value)
     output_users("#{key}: '#{value}'", users_filtered)
+  end
+
+  def user_detail_instructions
+    @usr_detail_instructions ||=
+      "For detail on a user: specify name e.g. 'rake user[#{users.last.name}]'\n".direct +
+      DIVIDER
   end
 
   def audit
@@ -82,5 +101,6 @@ class UserUtils < AwsUtils
       puts DIVIDER
     end
     puts "IAM Users (#{filter}): " + users_filtered.count.to_s.warning
+    puts user_detail_instructions
   end
 end

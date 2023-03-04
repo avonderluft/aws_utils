@@ -15,6 +15,8 @@
   - :id: IAMAKUSERKEY4USER1
     :status: Active
     :age_days: '1044'
+  key_age: '1044'
+  key_days_left: '-954'
   tags:
     email: admin@example.com
   svc_acct: false
@@ -31,6 +33,8 @@
   groups: *4
   policies: []
   keys: []
+  key_age: 'no keys!'
+  key_days_left: 'N/A'
   tags:
     email: dev@example.com
   svc_acct: false
