@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'aws-sdk-lambda'
-require_relative 'lambda'
+require_relative 'aws_utils/lambda'
 
 # to query AWS Lambdas
 class LambdaUtils < AwsUtils
@@ -19,6 +19,9 @@ class LambdaUtils < AwsUtils
             lambdas = client.list_functions.functions
           rescue Aws::Lambda::Errors::AccessDeniedException
             next
+          rescue Seahorse::Client::NetworkingError => e
+            msg = 'Could not connect. May be network issues.'
+            die_gracefully(msg, e)
           end
           lambdas.each do |lamb|
             aws_lambda = Lambda.new(lamb, region_name)

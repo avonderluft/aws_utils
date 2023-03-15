@@ -3,7 +3,7 @@
 # to contain data from an AWS IAM user
 class IamUser
   attr_reader :id, :name, :mfa, :arn, :created, :last_login, :groups, :policies,
-              :keys, :active_keys, :key_days_left, :tags, :svc_acct
+              :keys, :active_keys, :key_age, :key_days_left, :tags, :svc_acct
 
   def initialize(user, iam_client)
     @id = user.user_id
@@ -16,17 +16,10 @@ class IamUser
     @policies = user_policies(iam_client)
     @keys = user_access_keys(iam_client)
     @active_keys = @keys.keep_if { |k| k[:status] == 'Active' }
+    @key_age = @active_keys.empty? ? 'no keys!' : active_keys.first[:age_days]
     @key_days_left = days_till_key_expiry
     @tags = user_tags(iam_client)
     @svc_acct = user.user_name.start_with? 'svc_'
-  end
-
-  def key_age
-    @key_age ||= begin
-      return 'no keys!' if active_keys.empty?
-
-      active_keys.first[:age_days]
-    end
   end
 
   def output_summary

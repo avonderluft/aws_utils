@@ -28,6 +28,7 @@ class Lambda
     when 'do' then 'light_blue'
     when 'go' then 'light_cyan'
     when 'ja' then 'cyan'
+    when 'no' then 'light_green'
     when 'py' then 'yellow'
     when 'ru' then 'light_red'
     end

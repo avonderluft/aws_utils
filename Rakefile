@@ -28,6 +28,13 @@ namespace :cache do
   end
 end
 
+namespace :log do
+  desc 'Truncate the log'
+  task :clear do
+    AwsUtils.clear_log
+  end
+end
+
 namespace :audit do
   desc 'Run all AWS audit tasks'
   task :all do

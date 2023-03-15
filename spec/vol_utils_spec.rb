@@ -26,7 +26,7 @@ RSpec.shared_examples 'a volutils object' do
   describe '#show_by_regions' do
     %w[all encrypted].each do |con|
       context con do
-        %w[ID Attachments ec2_device  delete_on].each do |text|
+        %w[ID Attachments ec2_device delete_on].each do |text|
           it { expect { volutils.show_by_regions(con) }.to output(/#{text}/).to_stdout }
           it { expect { volutils.show_by_regions(con) }.to output(/#{vol_id}/).to_stdout }
         end

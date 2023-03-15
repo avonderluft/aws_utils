@@ -2,7 +2,6 @@
 
 # collection of all the accessible EC2 regions
 module Ec2Regions
-
   def regions
     @regions ||= ec2_client.describe_regions.to_hash.values.flatten
   end
@@ -28,7 +27,7 @@ module Ec2Regions
     @region_names ||= filtered_regions.map { |r| r[:region_name] }.sort
   end
 
-  def show_regions(all = false)
+  def show_regions(all: false)
     puts LINE
     selected_regions = all ? regions : filtered_regions
     selected_regions.each do |region|

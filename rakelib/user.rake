@@ -65,5 +65,4 @@ namespace :users do
     options = {}
     uu.table_print(uu.users_keys_expiry_table_array, options, info)
   end
-
 end

@@ -4,7 +4,7 @@
 audit_reports
 cache
 coverage
-logs
+log
 reports
 /spec/fixtures/cache/*
 tmp

@@ -2,7 +2,7 @@
 
 require 'aws-sdk-s3'
 require_relative 'aws_utils'
-require_relative 's3_bucket'
+require_relative 'aws_utils/s3_bucket'
 
 # to query AWS S3 buckets
 class S3Utils < AwsUtils

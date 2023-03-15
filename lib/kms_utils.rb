@@ -2,7 +2,7 @@
 
 require 'aws-sdk-kms'
 require_relative 'ec2/ec2_regions'
-require_relative 'kms_key'
+require_relative 'aws_utils/kms_key'
 
 # to query AWS KMS keys
 class KmsUtils < AwsUtils
