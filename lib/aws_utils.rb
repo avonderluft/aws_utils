@@ -175,7 +175,7 @@ class AwsUtils
     @ec2_client = Aws::EC2::Client.new region: 'us-east-1'
     system 'aws configure set region us-east-1'
     @default_region = 'us-east-1'
-    logger.debut "- Changed default region to 'us-east-1'".status
+    logger.debug "- Changed default region to 'us-east-1'".status
   rescue Aws::EC2::Errors::RequestExpired => e
     msg = 'Your token is expired'
     die_gracefully(msg, e)
@@ -190,7 +190,7 @@ class AwsUtils
     return if owner_id == File.read(owner_id_file)
 
     File.write owner_id_file, owner_id
-    logger.debut "- Changed to new owner id '#{owner_id}'. Clearing the cache."
+    logger.debug "- Changed to new owner id '#{owner_id}'. Clearing the cache."
     cached_files = Dir.glob("#{CACHE_PATH}/*.yaml")
     FileUtils.rm_f cached_files
     cached_files.each { |file| puts "- #{file} removed.".status }
