@@ -23,6 +23,15 @@ namespace :ec2s do
     end
   end
 
+  desc 'Show all EC2s with their AMI IDs and names'
+  task :ami_names do
+    check_cache
+    ec2u = Ec2Utils.new
+    info = { class: 'EC2 instances', msg: ec2u.ec2_detail_instructions }
+    options = :instance, { name: { width: 20 } }, :ami_id, :ami_name
+    ec2u.table_print(ec2u.ec2s_table_array, options, info)
+  end
+
   desc 'Show EC2 instances for given Tag, grouped by region'
   task :by_tag, :tag_value do |_t, args|
     check_cache
