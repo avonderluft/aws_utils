@@ -42,7 +42,7 @@ class AwsUtils
                      end
     if mins_to_expire.negative?
       FileUtils.rm_f filepath
-      logger.info "Expired '#{cache_name}' cache removed." unless ENV['quiet'] == 'yes'
+      logger.info "Expired '#{cache_name}' cache removed" unless ENV['quiet'] == 'yes'
       false
     else
       if output
@@ -70,7 +70,10 @@ class AwsUtils
     FileUtils.rm_rf filenames
     return if ENV['quiet'] == 'yes'
 
-    filenames.each { |cache_file| puts "- #{cache_file} removed.".status }
+    filenames.each do |cache_file|
+      cache_file.gsub!(ENV['HOME'], '~')
+      logger.info "#{cache_file} removed" unless ENV['quiet'] == 'yes'
+    end
   end
 
   def self.clear_log
@@ -143,7 +146,7 @@ class AwsUtils
                  else
                    "#{Rake.application.top_level_tasks} items"
                  end
-    logger.debug "Total #{descriptor}: " + filtered_set.count.to_s + legend
+    logger.info "Total #{descriptor}: " + filtered_set.count.to_s + legend
     puts DIVIDER
   end
 
@@ -163,13 +166,20 @@ class AwsUtils
   end
 
   def caller_hash
+    tries = 5
+    retries ||= 0
+    puts "Retry retrieve caller identity...#{retries} of #{tries}".warning if retries.positive?
     @caller_hash ||= JSON.parse(`aws sts get-caller-identity`)
   rescue JSON::ParserError => e
+    retry if (retries += 1) < tries+1
     msg = 'Could not retrieve caller identity. May be network issues'
     die_gracefully(msg, e)
   end
 
   def check_region
+    tries = 30
+    retries ||= 0
+    puts "Retry check region...#{retries} of #{tries}".warning if retries.positive?
     ec2_client.describe_internet_gateways
   rescue Aws::EC2::Errors::UnauthorizedOperation
     @ec2_client = Aws::EC2::Client.new region: 'us-east-1'
@@ -180,6 +190,7 @@ class AwsUtils
     msg = 'Your token is expired'
     die_gracefully(msg, e)
   rescue Seahorse::Client::NetworkingError => e
+    retry if (retries += 1) < tries+1
     msg = 'Could not connect. May be network issues.'
     die_gracefully(msg, e)
   end
@@ -240,7 +251,7 @@ class AwsUtils
         next if step.include? 'gems/aws-'
 
         nicestep = step.gsub("#{ENV.fetch('HOME', nil)}", '~')
-        logger.debug "- #{nicestep}"
+        logger.debug " #{nicestep}"
       end
       puts DIVIDER
     end
