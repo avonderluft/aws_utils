@@ -24,7 +24,7 @@ class Ec2Utils < AwsUtils
     puts DIVIDER
     ec2s.each do |ec2|
       puts DIVIDER if ec2s.count > 1 && ec2 != ec2s.first
-      logger.info "Tags for #{id} - #{name}"
+      logger.info "Tags for #{ec2.id} - #{ec2.name}"
       ap ec2.tags, indent: -2, multiline: true, color: { string: ec2.status_color }
     end
     puts LINE

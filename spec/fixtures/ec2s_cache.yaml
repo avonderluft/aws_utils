@@ -13,7 +13,8 @@
   vpc: vpc-44219821
   key_name: test_demo
   launch_time: 2022-09-12 17:06:31.000000000 Z
-  ami: ami-19191919191919191
+  ami_id: ami-19191919191919191
+  ami_name: My Spiffy Image
   sec_groups:
   - test_demo_public_web
   monitoring: disabled

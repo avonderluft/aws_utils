@@ -15,7 +15,8 @@
   key_name: INF-9999
   az: us-west-2b
   launch_time: 2020-02-10 23:10:52.000000000 Z
-  ami: ami-00000000000001
+  ami_id: ami-00000000000001
+  ami_name: My Spiffy Image
   monitoring: disabled
   instance_type: m4.large
   state: running
@@ -40,7 +41,8 @@
   key_name: inf-2398
   az: us-west-2b
   launch_time: 2020-02-11 19:37:45.000000000 Z
-  ami: ami-00000000000002
+  ami_id: ami-00000000000002
+  ami_name: My Spiffy Image
   monitoring: disabled
   instance_type: t2.micro
   state: running
