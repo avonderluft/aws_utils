@@ -13,7 +13,7 @@ module Ec2Instances
         region_names.each do |region_name|
           ec2 = Aws::EC2::Resource.new(region: region_name)
           ec2.instances.each do |i|
-            instance = Ec2Instance.new(i.data, region_name)
+            instance = Ec2Instance.new(i.data, region_name, ec2.client)
             all_ec2s << instance
           end
         rescue Aws::EC2::Errors::UnauthorizedOperation
@@ -28,11 +28,11 @@ module Ec2Instances
 
   def ec2s_table_array
     @ec2s_table_array ||= begin
-      inst = Struct.new(:instance, :name, :state, :ami, :platform, :type, :ip_address)
+      inst = Struct.new(:instance, :name, :state, :ami, :ami_name, :platform, :type, :ip_address)
       instances = []
       ec2s.each do |i|
         instances << inst.new(i.id, i.name, i.state,
-                              i.ami, i.platform, i.instance_type, i.private_ip)
+                              i.ami_id, i.ami_name, i.platform, i.instance_type, i.private_ip)
       end
       instances
     end

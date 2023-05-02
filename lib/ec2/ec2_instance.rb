@@ -3,10 +3,10 @@
 # to contain data from an AWS EC2 instance
 class Ec2Instance
   attr_reader :id, :name, :region, :az, :instance_type, :platform, :cores, :public_ip, :private_ip,
-              :subnet, :vpc, :key_name, :launch_time, :ami, :sec_groups, :monitoring, :state,
-              :uptime, :block_devices, :groups, :tags
+              :subnet, :vpc, :key_name, :launch_time, :ami_id, :ami_name, :sec_groups, :monitoring,
+              :state, :uptime, :block_devices, :groups, :tags
 
-  def initialize(ec2, region_name)
+  def initialize(ec2, region_name, ec2_client)
     @id = ec2.instance_id
     @name = tag_value(ec2, 'Name')
     @region = region_name
@@ -20,7 +20,8 @@ class Ec2Instance
     @vpc = ec2.vpc_id
     @key_name = ec2.key_name
     @launch_time = ec2.launch_time
-    @ami = ec2.image_id
+    @ami_id = ec2.image_id
+    @ami_name = get_ami_name(ec2_client, ec2.image_id)
     @sec_groups = ec2.security_groups.map(&:group_name)
     @monitoring = ec2.monitoring.state
     @state = ec2.state.name
@@ -75,6 +76,11 @@ class Ec2Instance
 
   private
 
+  def get_ami_name(ec2_client, image_id)
+    img_array = ec2_client.describe_images( { image_ids: [image_id] } )[:images]
+    img_array.any? ? img_array.first[:name] : ''
+  end
+
   def arrange_block_devices(device_mappings)
     block_devs = []
     device_mappings.each do |dm|
@@ -90,7 +96,7 @@ class Ec2Instance
   end
 
   def summary
-    state_string = uptime.empty? ?  state : "#{state} - up #{uptime}"
+    state_string = uptime.empty? ? state : "#{state} - up #{uptime}"
     { ID_Name: "#{id} - #{name}", Region_AZ: "#{region} (#{az})", Type: instance_type,
       State: state_string, Block_Devices: block_devices, Tags: tags }
   end

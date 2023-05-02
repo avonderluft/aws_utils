@@ -2,7 +2,7 @@
 
 require 'aws-sdk-iam'
 require_relative 'aws_utils'
-require_relative 'iam_user'
+require_relative 'aws_utils/iam_user'
 
 # to query AWS IAM users
 class UserUtils < AwsUtils
@@ -101,6 +101,7 @@ class UserUtils < AwsUtils
       puts DIVIDER
     end
     puts "IAM Users (#{filter}): " + users_filtered.count.to_s.warning
+    puts DIVIDER
     puts user_detail_instructions
   end
 end

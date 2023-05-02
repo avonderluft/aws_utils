@@ -2,7 +2,7 @@
 
 require 'aws-sdk-eks'
 require_relative 'aws_utils'
-require_relative 'eks_cluster'
+require_relative 'aws_utils/eks_cluster'
 
 # to query AWS EKS clusters
 class EksUtils < AwsUtils

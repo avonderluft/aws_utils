@@ -62,8 +62,7 @@ namespace :users do
     check_cache
     uu = UserUtils.new
     info = { class: 'IAM Users with active keys', msg: uu.user_detail_instructions }
-    options = {}
+    options = :id, :name, { active_key: { width: 22 } }, :key_age, :days_left
     uu.table_print(uu.users_keys_expiry_table_array, options, info)
   end
-
 end

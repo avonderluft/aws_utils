@@ -20,11 +20,15 @@ class Ec2Utils < AwsUtils
 
   def show_tags
     puts LINE
+    puts "Tags for all EC2s  Count: #{ec2s.count.to_s.yellow}#{EC2_LEGEND}"
+    puts DIVIDER
     ec2s.each do |ec2|
       puts DIVIDER if ec2s.count > 1 && ec2 != ec2s.first
-      puts "Tags for #{ec2.id.identify}"
+      logger.info "Tags for #{ec2.id} - #{ec2.name}"
       ap ec2.tags, indent: -2, multiline: true, color: { string: ec2.status_color }
     end
+    puts LINE
+    puts EC2_LEGEND
     puts LINE
   end
 
@@ -36,7 +40,7 @@ class Ec2Utils < AwsUtils
       output_by_region(ec2s, "tag '#{tag}'", tag_ec2s, EC2_LEGEND)
       puts ec2_detail_instructions
     else
-      puts "No EC2 instances have the tag '#{tag}'".error
+      logger.error "No EC2 instances have the tag '#{tag}'"
     end
   end
 
@@ -47,7 +51,7 @@ class Ec2Utils < AwsUtils
       puts ec2_detail_instructions
     else
       puts LINE
-      puts "'#{type_arg}' is not a valid instance type.".error
+      logger.error "'#{type_arg}' is not a valid instance type."
       puts "run 'rake ec2s:types[<optional_filter>]' to see available types".direct
       puts DIVIDER
     end
@@ -55,7 +59,7 @@ class Ec2Utils < AwsUtils
 
   def show_by_regions(filter)
     output_by_region(ec2s, filter, ec2s_filter(filter), EC2_LEGEND)
-    puts ec2_detail_instructions
+    puts ec2_detail_instructions if ec2s.any?
   end
 
   def ec2_detail_instructions

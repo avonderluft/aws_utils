@@ -9,8 +9,9 @@ require 'diffy'
 require 'fileutils'
 require 'table_print'
 require 'yaml'
-require_relative 'audit_common'
-require_relative 'constants'
+require_relative 'aws_utils/audit_common'
+require_relative 'aws_utils/constants'
+require_relative 'aws_utils/task_logger'
 require_relative 'ec2/ec2_regions'
 
 # base class for querying AWS resources
@@ -18,8 +19,12 @@ class AwsUtils
   include AuditCommon
   include Ec2Regions
 
-  attr_reader :cli, :default_region, :owner_id, :user_id, :user_name
+  attr_reader :cli, :default_region, :logger, :owner_id, :user_id, :user_name
   attr_accessor :ec2_client, :quiet
+
+  def self.logger
+    TaskLogger.new(LOGFILE).logger
+  end
 
   def self.cache_file_path(cache_name)
     "#{CACHE_PATH}/#{cache_name}_cache.yaml"
@@ -37,7 +42,7 @@ class AwsUtils
                      end
     if mins_to_expire.negative?
       FileUtils.rm_f filepath
-      puts "- expired '#{cache_name}' cache removed.".status unless ENV['quiet'] == 'yes'
+      logger.info "Expired '#{cache_name}' cache removed" unless ENV['quiet'] == 'yes'
       false
     else
       if output
@@ -65,13 +70,24 @@ class AwsUtils
     FileUtils.rm_rf filenames
     return if ENV['quiet'] == 'yes'
 
-    filenames.each { |cache_file| puts "- #{cache_file} removed.".status }
+    filenames.each do |cache_file|
+      cache_file.gsub!(ENV['HOME'], '~')
+      logger.info "#{cache_file} removed" unless ENV['quiet'] == 'yes'
+    end
+  end
+
+  def self.clear_log
+    return unless File.exist? LOGFILE
+
+    File.truncate(LOGFILE, 0)
+    logger.info "#{LOGFILE} truncated."
   end
 
   def initialize
-    @cli = `command -v aws`.chomp
+    @cli = `which aws`.chomp
     exit unless cli_found?
 
+    @logger = AwsUtils.logger
     @default_region = set_default_region
     @ec2_client = Aws::EC2::Client.new region: default_region
     @user_id = caller_hash['UserId']
@@ -81,22 +97,24 @@ class AwsUtils
     FileUtils.mkdir_p CACHE_PATH
     check_region
     check_account_owner # clear all caches if different account
-    reset_mfa unless access_ok?
-    puts "- #{self.class} object instantiated for '#{user_name}', ".status +
-         "account '#{owner_id}' in region #{default_region}".status
+    # reset_mfa unless access_ok? # N/A for USCIS
+    return if ENV['quiet'] == 'yes'
+
+    logger.info "#{self.class} object instantiated for '#{user_name}', " +
+                "account '#{owner_id}' in region #{default_region}"
   end
 
   def default_region=(region)
     raise "'region' must be one of #{region_names}".error unless region_names.include? region
 
     system "aws configure set region #{region}"
-    puts "- default_region set to '#{region}'".status
-    puts "Run 'rake regions' to see all available regions.".info
+    logger.info "- default_region set to '#{region}'"
+    logger.debug "Run 'rake regions' to see all available regions."
   end
 
   def table_print(objects, options, info_hash)
     puts DIVIDER
-    puts "Describing #{info_hash[:class]}: #{objects.count} found.".info if info_hash[:class]
+    logger.info "Describing #{info_hash[:class]}: #{objects.count} found.".info if info_hash[:class]
     puts DIVIDER
     tp objects, options
     puts DIVIDER
@@ -104,6 +122,7 @@ class AwsUtils
   end
 
   def output_object(object, status_color = 'light_green')
+    logger.info "Outputting #{object.class} object as hash"
     output = output_hash(object)
     ap output, object_id: false, indent: -2, index: false, color: { string: status_color }
   end
@@ -127,7 +146,7 @@ class AwsUtils
                  else
                    "#{Rake.application.top_level_tasks} items"
                  end
-    puts "Total #{descriptor}: " + filtered_set.count.to_s.warning + legend
+    logger.info "Total #{descriptor}: " + filtered_set.count.to_s + legend
     puts DIVIDER
   end
 
@@ -135,7 +154,7 @@ class AwsUtils
 
   def cli_found?
     if cli.empty?
-      puts 'Ensure the AWS CLI is accessible in your PATH, e.g. add /opt/homebrew/bin'.error
+      logger.error 'Ensure the AWS CLI is accessible in your PATH, e.g. add /opt/homebrew/bin'
       raise 'AWS CLI not found. Try running ./bin/setup.'.error
     else
       true
@@ -147,23 +166,31 @@ class AwsUtils
   end
 
   def caller_hash
+    tries = 5
+    retries ||= 0
+    puts "Retry retrieve caller identity...#{retries} of #{tries}".warning if retries.positive?
     @caller_hash ||= JSON.parse(`aws sts get-caller-identity`)
   rescue JSON::ParserError => e
+    retry if (retries += 1) < tries+1
     msg = 'Could not retrieve caller identity. May be network issues'
     die_gracefully(msg, e)
   end
 
   def check_region
+    tries = 30
+    retries ||= 0
+    puts "Retry check region...#{retries} of #{tries}".warning if retries.positive?
     ec2_client.describe_internet_gateways
   rescue Aws::EC2::Errors::UnauthorizedOperation
     @ec2_client = Aws::EC2::Client.new region: 'us-east-1'
     system 'aws configure set region us-east-1'
     @default_region = 'us-east-1'
-    puts "- Changed default region to 'us-east-1'".status
+    logger.debug "- Changed default region to 'us-east-1'".status
   rescue Aws::EC2::Errors::RequestExpired => e
     msg = 'Your token is expired'
     die_gracefully(msg, e)
   rescue Seahorse::Client::NetworkingError => e
+    retry if (retries += 1) < tries+1
     msg = 'Could not connect. May be network issues.'
     die_gracefully(msg, e)
   end
@@ -174,7 +201,7 @@ class AwsUtils
     return if owner_id == File.read(owner_id_file)
 
     File.write owner_id_file, owner_id
-    puts "- Changed to new owner id '#{owner_id}'. Clearing the cache.".status
+    logger.debug "- Changed to new owner id '#{owner_id}'. Clearing the cache."
     cached_files = Dir.glob("#{CACHE_PATH}/*.yaml")
     FileUtils.rm_f cached_files
     cached_files.each { |file| puts "- #{file} removed.".status }
@@ -185,7 +212,7 @@ class AwsUtils
   end
 
   def reset_mfa
-    puts 'Setting new MFA session...'.go
+    logger.info 'Setting new MFA session...'
     if ENV['USER'].include? '.'
       first, last = ENV['USER'].split('.')
       aws_user = first[0] + last
@@ -198,7 +225,7 @@ class AwsUtils
     print 'Enter 6 digit MFA token: '.direct
     aws_token = $stdin.gets.chomp
     mfa_cmd = "#{File.join(File.dirname(__FILE__), '../bin/aws_mfa_set.sh')} -u #{aws_user} -t #{aws_token}"
-    puts "Executing '#{mfa_cmd}'...".status
+    logger.debug "Executing '#{mfa_cmd}'..."
     print DIVIDER
     system mfa_cmd
     puts DIVIDER
@@ -216,11 +243,19 @@ class AwsUtils
 
   def die_gracefully(msg, err)
     puts DIVIDER
-    puts msg.warning
-    puts DIVIDER
-    puts err.message.error
-    puts DIVIDER
-    raise err
+    logger.warn msg
+    logger.error err.inspect
+    if err.backtrace
+      logger.debug "Stacktrace for \"#{err.message}\" follows:"
+      err.backtrace[0..20].each do |step|
+        next if step.include? 'gems/aws-'
+
+        nicestep = step.gsub("#{ENV.fetch('HOME', nil)}", '~')
+        logger.debug " #{nicestep}"
+      end
+      puts DIVIDER
+    end
+    exit
   end
 end
 # rubocop:enable Metrics/ClassLength

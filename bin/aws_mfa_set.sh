@@ -56,7 +56,7 @@ print () {
 check_bin () {
   for i in "$@"; do
     local bin_to_check="$1"; shift
-    if [ -z "$(command -v "$bin_to_check")" ]; then
+    if [ -z "$(which "$bin_to_check")" ]; then
       echo "$bin_to_check is not installed in your path. Exiting..." && exit 1;
     fi
   done

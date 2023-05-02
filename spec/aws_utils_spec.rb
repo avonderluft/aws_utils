@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'aws_utils'
+require 'aws_utils/iam_user'
+require 'aws_utils/lambda'
+require 'aws_utils/s3_bucket'
 require 'ec2/ec2_instance'
-require 'iam_user'
-require 'lambda'
-require 's3_bucket'
 
 RSpec.describe AwsUtils do
   subject(:awsutils) { described_class.new }
