@@ -20,7 +20,7 @@ class UserUtils < AwsUtils
           user = IamUser.new(iam_user, iam_client)
           all_users << user
         end
-        all_users.sort_by! { |u| u.name }
+        all_users.sort_by!(&:name)
         AwsUtils.write_cache('users', all_users)
       end
       all_users
@@ -50,7 +50,7 @@ class UserUtils < AwsUtils
   end
 
   def user_detail_instructions
-    @usr_detail_instructions ||=
+    @user_detail_instructions ||=
       "For detail on a user: specify name e.g. 'rake user[#{users.last.name}]'\n".direct +
       DIVIDER
   end

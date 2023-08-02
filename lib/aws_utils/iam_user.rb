@@ -83,7 +83,7 @@ class IamUser
   def days_till_key_expiry
     return 'N/A' if active_keys.empty?
 
-    "#{CONFIG['stale_key_days'].to_i - key_age.to_i}"
+    (CONFIG['stale_key_days'].to_i - key_age.to_i).to_s
   end
 
   def status_color
