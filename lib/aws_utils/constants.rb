@@ -7,9 +7,9 @@ DIVIDER = '-' * SCREEN_WIDTH
 LINE = '='.light_blue * SCREEN_WIDTH
 
 BASE_DIR        = File.expand_path('../..', __dir__)
-AUDIT_PATH      = "#{BASE_DIR}/audit_reports"
-CACHE_PATH      = "#{BASE_DIR}/cache"
-LOGFILE         = "#{BASE_DIR}/log/aws_utils.log"
+AUDIT_PATH      = "#{BASE_DIR}/audit_reports".freeze
+CACHE_PATH      = "#{BASE_DIR}/cache".freeze
+LOGFILE         = "#{BASE_DIR}/log/aws_utils.log".freeze
 CONFIG          = YAML.safe_load(File.read("#{File.dirname(__FILE__)}/../../config/config.yaml"))
 LAMBDA_RUNTIMES = %w[dotnet go java node python ruby].freeze
 

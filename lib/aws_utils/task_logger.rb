@@ -2,6 +2,7 @@
 
 require 'logger'
 
+# Write to log file and colorized to stdout
 class TaskLogger
   attr_reader :logger
 

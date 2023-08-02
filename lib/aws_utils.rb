@@ -71,7 +71,7 @@ class AwsUtils
     return if ENV['quiet'] == 'yes'
 
     filenames.each do |cache_file|
-      cache_file.gsub!(ENV['HOME'], '~')
+      cache_file.gsub!(Dir.home, '~')
       logger.info "#{cache_file} removed" unless ENV['quiet'] == 'yes'
     end
   end
@@ -100,7 +100,7 @@ class AwsUtils
     # reset_mfa unless access_ok? # N/A for USCIS
     return if ENV['quiet'] == 'yes'
 
-    logger.info "#{self.class} object instantiated for '#{user_name}', " +
+    logger.info "#{self.class} object instantiated for '#{user_name}', " \
                 "account '#{owner_id}' in region #{default_region}"
   end
 
@@ -146,7 +146,9 @@ class AwsUtils
                  else
                    "#{Rake.application.top_level_tasks} items"
                  end
-    logger.info "Total #{descriptor}: " + filtered_set.count.to_s + legend
+    logger.info "Total #{descriptor}: " + filtered_set.count.to_s
+    puts DIVIDER
+    puts "   LEGEND   --#{legend}"
     puts DIVIDER
   end
 
@@ -171,7 +173,7 @@ class AwsUtils
     puts "Retry retrieve caller identity...#{retries} of #{tries}".warning if retries.positive?
     @caller_hash ||= JSON.parse(`aws sts get-caller-identity`)
   rescue JSON::ParserError => e
-    retry if (retries += 1) < tries+1
+    retry if (retries += 1) < tries + 1
     msg = 'Could not retrieve caller identity. May be network issues'
     die_gracefully(msg, e)
   end
@@ -190,7 +192,7 @@ class AwsUtils
     msg = 'Your token is expired'
     die_gracefully(msg, e)
   rescue Seahorse::Client::NetworkingError => e
-    retry if (retries += 1) < tries+1
+    retry if (retries += 1) < tries + 1
     msg = 'Could not connect. May be network issues.'
     die_gracefully(msg, e)
   end
@@ -241,6 +243,17 @@ class AwsUtils
     var_hash
   end
 
+  def suppress_output
+    original_stderr = $stderr.clone
+    original_stdout = $stdout.clone
+    $stderr.reopen(File.new('/dev/null', 'w'))
+    $stdout.reopen(File.new('/dev/null', 'w'))
+    yield
+  ensure
+    $stdout.reopen(original_stdout)
+    $stderr.reopen(original_stderr)
+  end
+
   def die_gracefully(msg, err)
     puts DIVIDER
     logger.warn msg
@@ -250,7 +263,7 @@ class AwsUtils
       err.backtrace[0..20].each do |step|
         next if step.include? 'gems/aws-'
 
-        nicestep = step.gsub("#{ENV.fetch('HOME', nil)}", '~')
+        nicestep = step.gsub(Dir.home.to_s, '~')
         logger.debug " #{nicestep}"
       end
       puts DIVIDER
