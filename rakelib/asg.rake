@@ -15,10 +15,16 @@ task :asgs do
 end
 
 namespace :asg do
-  desc 'Refresh instances for an Auto-scaling Group by name'
+  desc 'Launch and monitor instance refresh for ASG by name'
   task :refresh, :name do |_t, args|
-    check_cache
-    AsgUtils.new.refresh_instances(args[:name])
+    AsgUtils.new.refresh_instance(args[:name])
+  end
+  namespace :refresh do
+    desc 'Launch instance refresh for ASG by name'
+    task :launch_only, :name do |_t, args|
+      # 2nd arg 'false' == do not monitor progress till completion
+      AsgUtils.new.refresh_instance(args[:name], false)
+    end
   end
 end
 
@@ -31,5 +37,4 @@ namespace :asgs do
     options = {}
     asgu.table_print(asgu.asgs_table_array, options, info)
   end
-
 end

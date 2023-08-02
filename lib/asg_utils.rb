@@ -33,39 +33,52 @@ class AsgUtils < AwsUtils
 
   def asgs_table_array
     @asgs_table_array ||= begin
-      asgi = Struct.new(:name, :min, :max, :desired, :current, :last_refresh)
+      asgi = Struct.new(:name, :min_, :max_, :desired, :current, :last_refresh)
       asg_array = []
       asgs.each do |a|
-        line = asgi.new(a.short_name, a.min, a.max, a.desired, a.instances.size, a.last_refresh_date.to_s[0,10])
+        line = asgi.new(a.short_name, a.min, a.max, a.desired, a.instances.size, a.last_refresh_date.to_s[0, 10])
         asg_array << line
       end
       asg_array
     end
   end
 
-  def refresh_instances(name)
+  def refresh_instance(name, monitor = true)
     selected = asgs.select { |a| a.short_name == name }
     if selected.empty?
       logger.error "Auto-scaling group '#{name}' not found"
     else
       asg = selected.first
-      logger.info "Starting instance refresh on #{asg.name}..."
-      asg_client.start_instance_refresh({
-        auto_scaling_group_name: asg.name,
-        desired_configuration: {
-          launch_template: {
-            launch_template_name: asg.launch_template_name,
-            version: "$Latest",
+      logger.info "Starting instance refresh of #{asg.name}"
+      resp = asg_client.start_instance_refresh(
+        {
+          auto_scaling_group_name: asg.name,
+          desired_configuration: {
+            launch_template: {
+              launch_template_name: asg.launch_template_name,
+              version: '$Latest'
+            }
           },
-        },
-        preferences: {
-          instance_warmup: 300,
-          min_healthy_percentage: 90,
-          skip_matching: false,
-        },
-      })
-      puts "For status of instance refresh: 'rake asg[#{name}]'".direct
+          preferences: {
+            instance_warmup: 300,
+            min_healthy_percentage: 90,
+            skip_matching: false # set to true for testing, false for live
+          }
+        }
+      )
+      if monitor
+        start_time = Time.now
+        refresh_id = resp.to_h[:instance_refresh_id]
+        show_refresh_status(asg.name, refresh_id)
+        duration = "#{((Time.now - start_time) / 60).round} minutes"
+        logger.info "Instance refresh of #{asg.name} completed in #{duration}"
+      else
+        logger.info "Instance refresh of #{asg.name} launched"
+        puts "For status of refresh, run 'rake asg[#{name}]'".direct
+      end
     end
+  rescue StandardError => e
+    die_gracefully("Auto-refresh of '#{name}' failed", e)
   end
 
   def show_by_name(name)
@@ -80,16 +93,6 @@ class AsgUtils < AwsUtils
     end
     # puts ASG_LEGEND
     puts LINE
-  end
-
-  def show_groups
-    puts LINE
-    # puts ASG_LEGEND
-    asgs.each { |o| output_object(o, o.status_color) }
-    puts LINE
-    # puts ASG_LEGEND
-    puts DIVIDER
-    puts "Auto-scaling Groups: #{asgs.count.to_s.warning}"
   end
 
   def show_by_regions(filter = 'all')
@@ -112,5 +115,25 @@ class AsgUtils < AwsUtils
     case filter
     when 'all' then asgs
     end
+  end
+
+  def show_refresh_status(asg_name, refresh_id)
+    puts DIVIDER
+    puts "Status updates for ASG instance refresh of #{asg_name}".status
+    puts DIVIDER
+    percentage = new_percentage = 0
+    to_update = 1
+    puts "#{Time.now} - Beginning refresh of #{asg_name} instances".status
+    until percentage == 100 && to_update.zero?
+      sleep 120
+      resp = asg_client.describe_instance_refreshes({ auto_scaling_group_name: asg_name })
+      refreshes = resp.to_h[:instance_refreshes]
+      refreshes.select! { |r| r[:instance_refresh_id] == refresh_id }
+      new_percentage = refreshes.first[:percentage_complete] if refreshes.first[:percentage_complete]
+      to_update = refreshes.first[:instances_to_update]
+      percentage = new_percentage if new_percentage > percentage
+      puts "#{Time.now} - #{new_percentage}% complete, #{to_update} instance(s) to update".status
+    end
+    puts DIVIDER
   end
 end
