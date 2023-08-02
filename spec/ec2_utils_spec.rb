@@ -2,7 +2,7 @@
 
 require 'ec2_utils'
 require 'ec2/ec2_volume'
-aws_ec2 = YAML.unsafe_load(File.read("#{fixtures_dir}/aws_ec2_instance.yaml"))
+# aws_ec2 = YAML.unsafe_load(File.read("#{fixtures_dir}/aws_ec2_instance.yaml"))
 ec2s_array = YAML.unsafe_load(File.read("#{fixtures_dir}/ec2_instances.yaml"))
 ec2_id = 'i-00000000000001'
 

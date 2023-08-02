@@ -77,7 +77,7 @@ class Ec2Instance
   private
 
   def get_ami_name(ec2_client, image_id)
-    img_array = ec2_client.describe_images( { image_ids: [image_id] } )[:images]
+    img_array = ec2_client.describe_images({ image_ids: [image_id] })[:images]
     img_array.any? ? img_array.first[:name] : ''
   end
 

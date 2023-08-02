@@ -19,7 +19,7 @@ module Ec2Instances
         rescue Aws::EC2::Errors::UnauthorizedOperation
           next
         end
-        all_ec2s.sort_by! { |i| i.name }
+        all_ec2s.sort_by!(&:name)
         AwsUtils.write_cache('ec2s', all_ec2s)
       end
       all_ec2s
@@ -36,6 +36,18 @@ module Ec2Instances
       end
       instances
     end
+  end
+
+  def ec2s_linux
+    ec2s.select { |i| i.platform == 'Linux/UNIX' }
+  end
+
+  def ec2s_linux_and_running
+    ec2s_linux.select { |i| i.state == 'running' }
+  end
+
+  def ec2_live_private_ips
+    ec2s_linux_and_running.map(&:private_ip).uniq.sort
   end
 
   def ec2_used_regions

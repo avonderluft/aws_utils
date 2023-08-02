@@ -64,8 +64,7 @@ class Ec2Utils < AwsUtils
 
   def ec2_detail_instructions
     @ec2_detail_instructions ||=
-      "For detail on an instance: specify ec2 id or name e.g. 'rake ec2[#{ec2s.last.id}]'\n".direct +
-      DIVIDER
+      "For detail on an instance: specify ec2 id or name e.g. 'rake ec2[#{ec2s.last.id}]'\n".direct + DIVIDER
   end
 
   def show_instance_types(filter = 'all')
@@ -73,8 +72,7 @@ class Ec2Utils < AwsUtils
     types.select! { |t| t.include? filter } if filter
     puts types.to_s.info
     puts DIVIDER
-    puts "To filter types shown, add argument, e.g 'rake ec2s:types[t3a]".direct
-    puts DIVIDER
+    puts "To filter types shown, add argument, e.g 'rake ec2s:types[t3a]'\n".direct + DIVIDER
   end
 
   def audit
