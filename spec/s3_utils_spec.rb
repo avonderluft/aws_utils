@@ -13,9 +13,9 @@ RSpec.shared_examples 'an S3Utils object' do
     end
   end
 
-  describe '#show' do
-    %w[ID_Name Encryption].each do |text|
-      it { expect { s3utils.show }.to output(/#{text}/).to_stdout }
+  describe '#show_by_regions' do
+    %w[ID Name Encryption].each do |text|
+      it { expect { s3utils.show_by_regions('all') }.to output(/#{text}/).to_stdout }
     end
   end
 end
@@ -31,11 +31,12 @@ RSpec.describe S3Utils do
     before do
       allow(AwsUtils).to receive(:cached?).with('s3buckets').and_return(false)
       s3_client = double('s3_client')
+      cli = double('cli')
       allow(s3_client).to receive(:get_bucket_encryption).and_return(aws_s3bucket_encryption)
       allow_any_instance_of(S3Bucket).to receive(:bucket_logging).with(s3_client).and_return('none')
       allow_any_instance_of(S3Bucket).to receive(:bucket_lifecycle_rules).with(s3_client).and_return([])
       allow_any_instance_of(S3Bucket).to receive(:bucket_tagging).and_return([])
-      buckets_array = [S3Bucket.new(aws_s3bucket, 'us-west-2', s3_client)]
+      buckets_array = [S3Bucket.new(aws_s3bucket, 'us-west-2', s3_client, cli)]
       allow_any_instance_of(S3Utils).to receive(:s3buckets).and_return(buckets_array)
     end
 

@@ -15,27 +15,52 @@ class S3Utils < AwsUtils
       if AwsUtils.cached?('s3buckets')
         all_s3buckets = AwsUtils.read_cache('s3buckets')
       else
+        all_aws_buckets = s3_client.list_buckets.buckets
         all_s3buckets = []
+        print " * Fetching #{all_aws_buckets.count} S3 buckets..".status
         s3_client.list_buckets.buckets.each do |bucket|
-          s3region = s3_client.get_bucket_location(bucket: bucket.name).location_constraint
-          s3region = default_region if s3region.empty?
-          s3bucket = S3Bucket.new(bucket, s3region, Aws::S3::Client.new(region: s3region))
-          all_s3buckets << s3bucket
+          s3bucket = create_bucket_object(bucket)
+          all_s3buckets << s3bucket if s3bucket
+          print '.'.status
         end
-        AwsUtils.write_cache('s3buckets', all_s3buckets)
+        puts '.done.'.status
       end
+      AwsUtils.write_cache('s3buckets', all_s3buckets)
       all_s3buckets
     end
   end
 
-  def show(filter = 'all')
-    s3sfil = filter[0, 5] == 'name ' ? s3buckets.select { |b| b.name == filter.split.last } : s3s_filter(filter)
+  def s3s_table_array(filter = 'all')
+    @s3s_table_array ||= begin
+      buck = Struct.new(:id, :name, :created, :region, :objects, :bucket_size, :encryption)
+      buckets = []
+      s3s_filter(filter).each do |b|
+        buckets << buck.new(b.id.to_s, b.name, b.created.to_s[0, 10], b.region,
+                            b.objects, b.size, b.encryption['algorithm'])
+      end
+      buckets
+    end
+  end
+
+  def show_by_id_or_name(id_or_name)
+    puts LINE
+    found_instances = s3buckets.select { |b| b.name == id_or_name }
+    found_instances = s3buckets.select { |b| b.id.to_s.include? id_or_name } if found_instances.empty?
+    found_instances.each { |bucket| output_object(bucket, bucket.status_color) }
     puts LINE
     puts S3_LEGEND
-    s3sfil.each(&:output_summary)
     puts LINE
-    puts "Total #{filter} S3 buckets: " + s3sfil.count.to_s.warning + S3_LEGEND
-    puts DIVIDER
+  end
+
+  def show_by_regions(filter = 'all')
+    output_by_region(s3buckets, filter, s3s_filter(filter), S3_LEGEND)
+    puts s3_detail_instructions if s3buckets.any?
+  end
+
+  def s3_detail_instructions
+    @s3_detail_instructions ||=
+      "For detail on a bucket: specify bucket id or name e.g. 'rake s3[#{s3buckets.last.id}]'\n".direct +
+      DIVIDER
   end
 
   def audit
@@ -55,9 +80,33 @@ class S3Utils < AwsUtils
 
   private
 
+  def create_bucket_object(bucket)
+    tries = 30
+    retries ||= 0
+    puts "Retry fetch of bucket #{bucket.name}...#{retries} of #{tries}".warning if retries.positive?
+    suppress_output { s3_client.head_bucket(bucket: bucket.name) }
+    loc_json = `#{cli} s3api get-bucket-location --bucket #{bucket.name}`
+    loc_constraint = JSON.parse(loc_json)['LocationConstraint']
+    bucket_region = loc_constraint.nil? ? default_region : loc_constraint
+    if bucket_region == default_region
+      S3Bucket.new(bucket, default_region, s3_client, cli)
+    else
+      S3Bucket.new(bucket, bucket_region, Aws::S3::Client.new(region: bucket_region), cli)
+    end
+  rescue Seahorse::Client::NetworkingError => e
+    retry if (retries += 1) < tries + 1
+    msg = 'Could not connect. May be network issues.'
+    die_gracefully(msg, e)
+  rescue Aws::S3::Errors::Forbidden
+    puts ''
+    logger.warn "Access to #{bucket.name} forbidden"
+    nil
+  end
+
   def s3s_filter(filter)
     case filter
     when 'all'         then s3buckets
+    when 'empty'       then s3buckets.select { |b| b.objects == '0' }
     when 'encrypted'   then s3buckets.select { |b| b.encryption.any? }
     when 'no_logging'  then s3buckets.select { |b| b.logging == 'none' }
     when 'unencrypted' then s3buckets.select { |b| b.encryption.empty? }

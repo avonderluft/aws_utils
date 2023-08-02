@@ -2,13 +2,21 @@
 
 # to contain data from an AWS S3 Bucket
 class S3Bucket
-  attr_reader :id, :name, :created, :region, :encryption, :logging, :rules, :tags
+  attr_reader :id, :name, :created, :region, :objects, :size, :encryption, :logging, :rules, :tags
 
-  def initialize(bucket, region, s3_client)
+  def initialize(bucket, region, s3_client, cli)
     @id = bucket.object_id
     @name = bucket.name
     @created = bucket.creation_date
     @region = region
+    if @name.start_with? 'awslogs'
+      @objects = 'many'
+      @size = 'skipped'
+    else
+      stats = `#{cli} s3 ls --summarize --human-readable --recursive s3://#{@name}/|tail -n 2`.split
+      @objects = stats[2]
+      @size = "#{stats[5]} #{stats[6]}"
+    end
     @encryption = bucket_encryption(s3_client)
     @logging = bucket_logging(s3_client)
     @rules = bucket_lifecycle_rules(s3_client)
@@ -18,6 +26,16 @@ class S3Bucket
   def output_summary
     puts DIVIDER
     ap summary, indent: -2, multiline: true, index: false, color: { string: status_color }
+  end
+
+  def status_color
+    if encryption.empty?
+      'light_red'
+    elsif logging == 'none'
+      'yellow'
+    else
+      'light_green'
+    end
   end
 
   private
@@ -66,16 +84,6 @@ class S3Bucket
     []
   end
 
-  def status_color
-    if encryption.empty?
-      'light_red'
-    elsif logging == 'none'
-      'yellow'
-    else
-      'light_green'
-    end
-  end
-
   def encryption_output
     if encryption.empty?
       nil
@@ -86,7 +94,7 @@ class S3Bucket
 
   def summary
     display_region = region.empty? ? 'global' : region
-    { ID_Name: "#{id} - #{name}", Created: created, Region: display_region,
+    { ID: id, Name: name, Created: created, Region: display_region, Objects: objects, Size: size,
       Encryption: encryption_output, Logging: logging, Rules: rules, Tags: tags }
   end
 end
